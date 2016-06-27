@@ -21,7 +21,7 @@ h1 {
 img {
   display: block;
   margin: 0 auto;
-  margin-bottom: 15px;
+  margin-bottom: 21px;
 }
 
 a {
@@ -30,4 +30,8 @@ a {
   border: 1px solid #ddd;
   padding: 5px 8px;
   background-color: #666;
+}
+
+.buttons {
+  margin: 0 auto;
 }
