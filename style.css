@@ -3,13 +3,17 @@ body {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 940px;
   margin: 0 auto;
-  padding: 9px;
+  padding: 0 9px;
 }
 
-h1, p {
+h1 {
   text-align: center;
+}
+
+p {
+  text-align: justify;
 }
 
 img {
