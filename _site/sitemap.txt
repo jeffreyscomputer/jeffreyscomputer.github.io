@@ -1,13 +1,13 @@
 
-http://gchauras.github.io/blog/
-http://gchauras.github.io/cv/
-http://gchauras.github.io/feed.xml
-http://gchauras.github.io/
-http://gchauras.github.io/css/main.css
-http://gchauras.github.io/misc/
-http://gchauras.github.io/projects/
-http://gchauras.github.io/sitemap.txt
+https://jeffreyscomputer.github.io//blog/
+https://jeffreyscomputer.github.io//cv/
+https://jeffreyscomputer.github.io//feed.xml
+https://jeffreyscomputer.github.io//
+https://jeffreyscomputer.github.io//css/main.css
+https://jeffreyscomputer.github.io//misc/
+https://jeffreyscomputer.github.io//projects/
+https://jeffreyscomputer.github.io//sitemap.txt
 
-http://gchauras.github.io/blog/2016/07/11/Nonsense
-http://gchauras.github.io/blog/2016/02/08/Chewbaca-is-talking-in-his-sleep
-http://gchauras.github.io/blog/2015/07/01/Body-Parts
+https://jeffreyscomputer.github.io//blog/2016/07/11/Nonsense
+https://jeffreyscomputer.github.io//blog/2016/02/08/Chewbaca-is-talking-in-his-sleep
+https://jeffreyscomputer.github.io//blog/2015/07/01/Body-Parts
