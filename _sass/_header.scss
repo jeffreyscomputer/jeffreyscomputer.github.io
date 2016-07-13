@@ -53,9 +53,9 @@
     color: $header-hover-color;
 }
 
-.site-nav .sub-menu a:hover {
-    color: $header-hover-url;
-}
+// .site-nav .sub-menu a:hover {
+//     color: $header-hover-url;
+// }
 .site-nav .sub-menu {
     border-color: $line-color;
     z-index:2147483647;
@@ -88,9 +88,9 @@
     text-align: left;
 }
 
-.site-nav li:hover > .sub-menu {
-    display: block;
-}
+// .site-nav li:hover > .sub-menu {
+//     display: block;
+// }
 
 .site-nav h1 {
     position: absolute;
@@ -148,10 +148,10 @@
             display: none;
         }
 
-        &:hover .trigger {
-            display: block;
-            padding-bottom: 5px;
-        }
+        // &:hover .trigger {
+        //     display: block;
+        //     padding-bottom: 5px;
+        // }
 
         .page-link {
             display: block;
@@ -159,3 +159,5 @@
         }
     }
 }
+
+
