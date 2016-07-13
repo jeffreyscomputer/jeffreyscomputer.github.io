@@ -4,15 +4,43 @@
   {% include head.html %}
 
   <body>
-  <div class="page">
-    {% include header.html %}
+      <div class="page">
+        {% include header.html %}
 
-    {{ content }}
+        {{ content }}
 
-     {% include footer.html %} 
+        {% include footer.html %} 
 
-    {% include analytics.html %}
-    </div>
+        {% include analytics.html %}
+
+        <!--slide-out nav-->
+        <div class="slide-out">
+            <ul>
+                {% for menu_item in site.data.menu %}
+                {% if menu_item.subcategories != null %}
+                <li><a href="{{ menu_item.href | prepend: site.baseurl }}" class="page-link">{{ menu_item.title }}</a>
+                <ul class="sub-menu">
+                {% for subcategory in menu_item.subcategories %}
+                <li><a href="{{ subcategory.subhref | prepend: site.baseurl }}">{{ subcategory.subtitle }}</a></li>
+                {% endfor %}
+                </ul>
+                {% else %}
+                <li><a href="{{ menu_item.href | prepend: site.baseurl }}" class="page-link">{{ menu_item.title }}</a>
+                {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script>
+          $('svg').click(function(){
+              $('.slide-out').show();
+          });
+      </script>
+
+
   </body>
 
 </html>

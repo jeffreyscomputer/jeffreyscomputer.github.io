@@ -18,8 +18,8 @@
 
 
   <body>
-  <div class="page">
-    <header class="site-header">
+      <div class="page">
+        <header class="site-header">
     <a class="site-title" href="/">Jeffrey Cool</a>
     <nav class="site-nav">
         <a href="#" class="menu-icon menu.open">
@@ -49,12 +49,15 @@
         
     </ul>
 
+    
+
+
         </div>
     </nav>
 </header>
 
 
-    <div class="post">
+        <div class="post">
     <header class="post-header">
         <h1>About</h1>
     </header>
@@ -78,7 +81,7 @@ Email: <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#106;&#101;&#102;&#102;&#1
 </div>
 
 
-     <footer class="site-footer">
+        <footer class="site-footer">
     Much-Worse Jekyll theme for academic page and blog<br />
 
     Using <a href="http://jekyllrb.com/">Jekyll</a>
@@ -88,11 +91,43 @@ Email: <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#106;&#101;&#102;&#102;&#1
     
 
 </footer>
+
  
 
-    
+        
 
-    </div>
+
+        <!--slide-out nav-->
+        <div class="slide-out">
+            <ul>
+                
+                
+                <li><a href="/projects/" class="page-link">Projects</a>
+                
+                </li>
+                
+                
+                <li><a href="/cv/" class="page-link">CV</a>
+                
+                </li>
+                
+                
+                <li><a href="/blog/" class="page-link">Blog</a>
+                
+                </li>
+                
+            </ul>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script>
+          $('svg').click(function(){
+              $('.slide-out').show();
+          });
+      </script>
+
+
   </body>
 
 </html>
