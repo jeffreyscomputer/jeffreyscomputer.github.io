@@ -79,6 +79,9 @@
         list-style-type: none;
         text-align: center;
         margin-top: 45px;
+        li {
+            margin-bottom: 20px;
+        }
         li a {
             color: #888;
         }
@@ -88,4 +91,3 @@
 .page-link {
     text-transform: lowercase;
 }
-
