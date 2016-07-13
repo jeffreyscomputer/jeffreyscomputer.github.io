@@ -66,7 +66,7 @@ pubs:
 
 ---
 
-## Publications (peer reviewed)
+## Publications
 
 {% assign thumbnail="left" %}
 

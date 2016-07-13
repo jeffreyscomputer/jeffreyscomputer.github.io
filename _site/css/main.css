@@ -94,15 +94,15 @@
   @media screen and (max-width: 32em) {
     .site-nav {
       position: absolute;
-      top: 9px;
-      right: 20px;
+      position: relative;
       border: 1px solid #ccc;
       border-radius: 5px;
-      text-align: right; }
+      text-align: right;
+      margin-top: 23px;
+      margin-bottom: 23px; }
       .site-nav .menu-icon {
         display: block;
         float: right;
-        width: 1.5em;
         height: 1.25em;
         line-height: 0;
         padding-top: 10px;
@@ -112,7 +112,7 @@
           height: 1em;
           vertical-align: middle; }
           .site-nav .menu-icon > svg path {
-            fill: #444; }
+            fill: #666; }
       .site-nav .trigger {
         clear: both;
         display: none; }
