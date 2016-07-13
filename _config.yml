@@ -16,7 +16,7 @@ author:
 markdown: kramdown
 highlighter: rouge
 
-# compress css?
+# compress css
 sass:
     style: compressed
 
