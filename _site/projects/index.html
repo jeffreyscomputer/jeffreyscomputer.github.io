@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="canonical" href="https://jeffreyscomputer.github.io//projects/">
     <link rel="alternate" type="application/rss+xml" title="Jeffrey Cool" href="https://jeffreyscomputer.github.io//feed.xml" />
-
+    
     <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
-  <div class="page">
-    <header class="site-header">
+      <div class="page">
+        <header class="site-header">
     <a class="site-title" href="/">Jeffrey Cool</a>
     <nav class="site-nav">
         <a href="#" class="menu-icon menu.open">
@@ -30,36 +30,39 @@
             </svg>
         </a>
         <div class="trigger"><h1>Main Navigation</h1>
-            <ul class="menu">
+                <ul class="menu desktop">
+        
+        
+        <li><a href="/projects/" class="page-link">Projects</a>
+        
+        </li>
+        
+        
+        <li><a href="/cv/" class="page-link">CV</a>
+        
+        </li>
+        
+        
+        <li><a href="/blog/" class="page-link">Blog</a>
+        
+        </li>
+        
+    </ul>
+
     
-    
-     <li><a href="/projects/" class="page-link">Projects</a>
-    
-    </li>
-    
-    
-     <li><a href="/cv/" class="page-link">CV</a>
-    
-    </li>
-    
-    
-     <li><a href="/blog/" class="page-link">Blog</a>
-    
-    </li>
-    
-</ul>
+
 
         </div>
     </nav>
 </header>
 
 
-    <div class="post">
+        <div class="post">
     <header class="post-header">
         <h1>Projects</h1>
     </header>
 
-    <h2 id="publications-peer-reviewed">Publications (peer reviewed)</h2>
+    <h2 id="publications">Publications</h2>
 
 <div class="captioned-img alignleft">
     <a href="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fimages.moviepostershop.com%2Fthe-matrix-movie-poster-1999-1020518087.jpg&amp;f=1">
@@ -135,7 +138,7 @@ M. McFly, D. Kirk, L. Skywalker, H.J. Potter, I. Jones, H. Houdini<br />
 </div>
 
 
-    <!-- <footer class="site-footer">
+        <footer class="site-footer">
     Much-Worse Jekyll theme for academic page and blog<br />
 
     Using <a href="http://jekyllrb.com/">Jekyll</a>
@@ -143,12 +146,46 @@ M. McFly, D. Kirk, L. Skywalker, H.J. Potter, I. Jones, H. Houdini<br />
      :: <a href="https://jeffreyscomputer.github.io/">Website source</a>
     
     
+
 </footer>
- -->
 
-    
+ 
 
-    </div>
+        
+
+
+        <!--slide-out nav-->
+        <div class="slide-out">
+            <ul>
+                
+                
+                <li><a href="/projects/" class="page-link">Projects</a>
+                
+                </li>
+                
+                
+                <li><a href="/cv/" class="page-link">CV</a>
+                
+                </li>
+                
+                
+                <li><a href="/blog/" class="page-link">Blog</a>
+                
+                </li>
+                
+                <!--<li><a class="page-link">*exit menu*</a></li>-->
+            </ul>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script>
+          $('svg').click(function(){
+              $('.slide-out').show("fast");
+          });
+      </script>
+
+
   </body>
 
 </html>

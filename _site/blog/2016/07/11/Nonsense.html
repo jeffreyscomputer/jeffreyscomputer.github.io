@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="canonical" href="https://jeffreyscomputer.github.io//blog/2016/07/11/Nonsense">
     <link rel="alternate" type="application/rss+xml" title="Jeffrey Cool" href="https://jeffreyscomputer.github.io//feed.xml" />
-
+    
     <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
-  <div class="page">
-    <header class="site-header">
+      <div class="page">
+        <header class="site-header">
     <a class="site-title" href="/">Jeffrey Cool</a>
     <nav class="site-nav">
         <a href="#" class="menu-icon menu.open">
@@ -30,31 +30,34 @@
             </svg>
         </a>
         <div class="trigger"><h1>Main Navigation</h1>
-            <ul class="menu">
+                <ul class="menu desktop">
+        
+        
+        <li><a href="/projects/" class="page-link">Projects</a>
+        
+        </li>
+        
+        
+        <li><a href="/cv/" class="page-link">CV</a>
+        
+        </li>
+        
+        
+        <li><a href="/blog/" class="page-link">Blog</a>
+        
+        </li>
+        
+    </ul>
+
     
-    
-     <li><a href="/projects/" class="page-link">Projects</a>
-    
-    </li>
-    
-    
-     <li><a href="/cv/" class="page-link">CV</a>
-    
-    </li>
-    
-    
-     <li><a href="/blog/" class="page-link">Blog</a>
-    
-    </li>
-    
-</ul>
+
 
         </div>
     </nav>
 </header>
 
 
-    <div class="post">
+        <div class="post">
     <header class="post-header">
     <h1>Nonsence</h1>
     <p class="post-meta">Posted on July 11, 2016 
@@ -101,7 +104,7 @@
 </div>
 
 
-    <!-- <footer class="site-footer">
+        <footer class="site-footer">
     Much-Worse Jekyll theme for academic page and blog<br />
 
     Using <a href="http://jekyllrb.com/">Jekyll</a>
@@ -109,12 +112,46 @@
      :: <a href="https://jeffreyscomputer.github.io/">Website source</a>
     
     
+
 </footer>
- -->
 
-    
+ 
 
-    </div>
+        
+
+
+        <!--slide-out nav-->
+        <div class="slide-out">
+            <ul>
+                
+                
+                <li><a href="/projects/" class="page-link">Projects</a>
+                
+                </li>
+                
+                
+                <li><a href="/cv/" class="page-link">CV</a>
+                
+                </li>
+                
+                
+                <li><a href="/blog/" class="page-link">Blog</a>
+                
+                </li>
+                
+                <!--<li><a class="page-link">*exit menu*</a></li>-->
+            </ul>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script>
+          $('svg').click(function(){
+              $('.slide-out').show("fast");
+          });
+      </script>
+
+
   </body>
 
 </html>

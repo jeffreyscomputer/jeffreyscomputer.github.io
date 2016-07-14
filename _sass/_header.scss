@@ -53,9 +53,9 @@
     color: $header-hover-color;
 }
 
-.site-nav .sub-menu a:hover {
-    color: $header-hover-url;
-}
+// .site-nav .sub-menu a:hover {
+//     color: $header-hover-url;
+// }
 .site-nav .sub-menu {
     border-color: $line-color;
     z-index:2147483647;
@@ -88,9 +88,9 @@
     text-align: left;
 }
 
-.site-nav li:hover > .sub-menu {
-    display: block;
-}
+// .site-nav li:hover > .sub-menu {
+//     display: block;
+// }
 
 .site-nav h1 {
     position: absolute;
@@ -115,16 +115,19 @@
 
     @include media-query($mobile) {
         position: absolute;
-        top: 9px;
-        right: 20px;
+        position: relative;
+        // top: 9px;
+        // right: 20px;
         border: 1px solid $line-color;
         border-radius: 5px;
         text-align: right;
+        margin-top: 18px;
+        margin-bottom: 18px;
 
         .menu-icon {
             display: block;
             float: right;
-            width: 1.5em;
+            // width: 1.5em;
             height: 1.25em;
             line-height: 0;
             padding-top: 10px;
@@ -135,7 +138,7 @@
                 height: 1em;
                 vertical-align: middle;
                 path {
-                    fill: $grey-dark;
+                    fill: #666;
                 }
             }
         }
@@ -145,10 +148,10 @@
             display: none;
         }
 
-        &:hover .trigger {
-            display: block;
-            padding-bottom: 5px;
-        }
+        // &:hover .trigger {
+        //     display: block;
+        //     padding-bottom: 5px;
+        // }
 
         .page-link {
             display: block;
@@ -156,3 +159,7 @@
         }
     }
 }
+
+
+
+

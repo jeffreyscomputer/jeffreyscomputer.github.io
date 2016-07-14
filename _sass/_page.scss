@@ -1,9 +1,10 @@
 .page {
     margin: 0 auto;
-    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-    max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
-    min-width: -webkit-calc(#{$content-min-width} - (#{$spacing-unit} * 2));
-    min-width:         calc(#{$content-min-width} - (#{$spacing-unit} * 2));
+    // max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
+    // max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
+    // min-width: -webkit-calc(#{$content-min-width} - (#{$spacing-unit} * 2));
+    // min-width:         calc(#{$content-min-width} - (#{$spacing-unit} * 2));
+    max-width: 970px;
     @include media-query($desktop) {
         max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
         max-width:         calc(#{$content-width} - (#{$spacing-unit}));
