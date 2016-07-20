@@ -114,15 +114,15 @@
     }
 
     @include media-query($mobile) {
-        position: absolute;
+        // position: absolute;
         position: relative;
         // top: 9px;
         // right: 20px;
-        border: 1px solid $line-color;
-        border-radius: 5px;
+        // border: 1px solid $line-color;
+        // border-radius: 5px;
         text-align: right;
-        margin-top: 18px;
-        margin-bottom: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
 
         .menu-icon {
             display: block;
@@ -159,7 +159,3 @@
         }
     }
 }
-
-
-
-
