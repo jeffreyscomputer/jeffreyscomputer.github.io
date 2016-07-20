@@ -9,12 +9,15 @@
 
         {{ content }}
 
-        {% include footer.html %} 
+        {% include footer.html %}
 
         {% include analytics.html %}
 
         <!--slide-out nav-->
         <div class="slide-out">
+            <header class="site-header none">
+              <a class="site-title" href="/">X</a>
+            </header>
             <ul>
                 {% for menu_item in site.data.menu %}
                 {% if menu_item.subcategories != null %}

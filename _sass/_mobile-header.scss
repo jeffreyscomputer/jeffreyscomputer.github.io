@@ -75,10 +75,19 @@
     background-color:$background;
     display:none;
     z-index: 99;
+    header {
+      margin: 0 .75em;
+    }
+    .site-title {
+      float: right;
+      text-transform: capitalize;
+      margin: 1em;
+    }
     ul {
         list-style-type: none;
         text-align: center;
         margin-top: 45px;
+        margin-left: 0;
         li {
             margin-bottom: 20px;
         }
