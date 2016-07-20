@@ -64,7 +64,7 @@
     border-color: $line-color;
     z-index:2147483647;
 }
-.site-nav .sub-menu li.current-menu-item > a {
+.site-nav li.current-menu-item > a {
     border-left: none;
     border-right: none;
 }
@@ -162,4 +162,8 @@
             padding: 5px 10px;
         }
     }
+}
+
+.this-page {
+  color: #000;
 }
