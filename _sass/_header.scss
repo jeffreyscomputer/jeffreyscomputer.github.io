@@ -45,6 +45,10 @@
     display: block;
 }
 
+#hamburger {
+  display: none;
+}
+
 // Sub Menu
 .site-nav .sub-menu a {
     display: block;
@@ -60,7 +64,7 @@
     border-color: $line-color;
     z-index:2147483647;
 }
-.site-nav .sub-menu li.current-menu-item > a {
+.site-nav li.current-menu-item > a {
     border-left: none;
     border-right: none;
 }
@@ -114,15 +118,15 @@
     }
 
     @include media-query($mobile) {
-        position: absolute;
+        // position: absolute;
         position: relative;
         // top: 9px;
         // right: 20px;
-        border: 1px solid $line-color;
-        border-radius: 5px;
+        // border: 1px solid $line-color;
+        // border-radius: 5px;
         text-align: right;
-        margin-top: 18px;
-        margin-bottom: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
 
         .menu-icon {
             display: block;
@@ -160,6 +164,6 @@
     }
 }
 
-
-
-
+.this-page a {
+  color: #000!important;
+}
