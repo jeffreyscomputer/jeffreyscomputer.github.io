@@ -1,1 +1,1 @@
-an adaptation of [this](https://github.com/gchauras/much-worse-jekyll-theme) theme.
+this was previously a Jekyll theme...but now we're starting over with plain HTML.
