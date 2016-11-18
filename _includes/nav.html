@@ -1,9 +1,0 @@
-    <ul class="menu desktop">
-        {% for menu_item in site.data.menu %}
-        <!-- Compare the page title to the URL -->
-        {% assign current = menu_item.title | downcase %}
-        <li {% if location == current %} class="this-page" {% endif %}>
-          <a href="{{ menu_item.href | prepend: site.baseurl }}" class="page-link">{{ menu_item.title }}</a>
-        </li>
-        {% endfor %}
-    </ul>
