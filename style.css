@@ -17,6 +17,7 @@ h1, h3 {
   text-align: center;
 }
 h2 {
+  margin-top: 40px;
   color: #555;
   text-decoration: underline;
 }
