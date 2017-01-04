@@ -39,5 +39,10 @@ img {
 @media screen and (max-width: 768px) {
   img {
     margin: 0 auto;
+}
+  img.displayed {
+    disply: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
