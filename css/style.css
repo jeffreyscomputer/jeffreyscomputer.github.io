@@ -39,6 +39,8 @@ a:visited {
 }
 a:hover {
   letter-spacing: 10px;
+  font-weight: bolder;
+  font-size: 30px;
   color: #235;
 
 }
