@@ -38,7 +38,7 @@ a:visited {
   color: #00A;
 }
 a:hover {
-  text-decoration-style: double;
+  letter-spacing: 1px;
   color: #235;
 
 }
