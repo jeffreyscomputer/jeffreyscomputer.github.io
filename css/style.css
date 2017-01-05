@@ -33,6 +33,15 @@ p {
 a {
   text-decoration: none;
 }
+a:visited {
+  color: #006;
+}
+a:hover {
+  text-transform: capitalize;
+  color: #235;
+
+}
+
 img {
   max-width: 100%;
 }
