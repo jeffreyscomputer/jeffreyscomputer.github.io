@@ -38,10 +38,9 @@ a:visited {
   color: #00A;
 }
 a:hover {
-  letter-spacing: 10px;
-  font-weight: bolder;
-  font-size: 30px;
-  color: #235;
+  letter-spacing: 8px;
+  font-weight: bold;
+  color: #853;
 
 }
 
