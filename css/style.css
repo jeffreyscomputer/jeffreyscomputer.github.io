@@ -37,7 +37,7 @@ a:visited {
   color: #006;
 }
 a:hover {
-  text-transform: capitalize;
+  text-decoration-style: wavy;
   color: #235;
 
 }
