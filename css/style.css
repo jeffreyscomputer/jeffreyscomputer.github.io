@@ -38,9 +38,8 @@ a:visited {
   color: #00A;
 }
 a:hover {
-  letter-spacing: 1px;
-  font-weight: lighter;
-  color: #853;
+  font-weight: bold;
+  color: #831;
 }
 
 img {
