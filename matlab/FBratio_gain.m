@@ -1,16 +1,20 @@
+%This is a script to display a graph illustrating the relationship
+%Between bandwidth and feedback ratio for amplifiers
 ADC = 100e3;
 BW = 10e6;
-Fp = BW/ADC;
+Fopen = BW/ADC;
+Fbx = BW/100;
+Fb1 = BW;
 
 f = 1:10:BW*10;
-G = BW./(Fp+f);
-H = BW./(Fp*1e3+f);
-U = BW./(Fp*1e5+f);
+G = BW./(Fopen+f);
+H = BW./(Fbx+f);
+U = BW./(Fb1+f);
 
 zero = ones(size(f));
 
 loglog(f,G,'--','Color','k','Linewidth',1.5); hold on;
-loglog(f,H,'--','Color','b','Linewidth',1.5); 
+loglog(f,H,'--','Color','b','Linewidth',1.5);
 loglog(f,U,'--','Color','r','Linewidth',1.5); hold off;
 axis([1 BW*10 .1 ADC*10])
 grid on
