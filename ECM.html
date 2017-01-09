@@ -16,7 +16,7 @@
       <img class="displayed" src="images/ECM_SCHEM_totemPole.PNG" height = "300"/>
       <p>Looking at the diagram, you can see that you should be able to measure two separate diode drops at the output -- (1) one comprised of a resistance in series with the CB junction of Q3 between ground and the output, and (2) another comprised of a resistance in series with the BE junction of Q2 and an additional diode between the positive rail and the output. the next picture shows what I mean:</p>
       <img class="displayed" src="images/ECM_SCHEM_totemSIMP.PNG" height ="300"/>
-      <p>I found that one of the two 7402 ICs on the board presented an open circuit between ground and each output instead of the expected diode drop. This meant that the outputs could not be pulled low! Hence the four injectors stuck in the on position.</p>
+      <p>I found that one of the two 7402 ICs on the board presented an open circuit between ground and each output instead of the expected diode drop. This meant that the lower transistors in the output stages were all toast on this chip, and therefore the outputs could not be pulled low! Hence the four injectors stuck in the on position.</p>
       <p>I think it is safe to say that every electrical engineering student has at some point or another used a 7402 TTL chip. I happened to have a few DIP package 7402s in my bag of electronic belongings, but the component on the ECM board was surface mount... so my repair was not pretty. But it worked! And now the car passes smog.</p>
 		</div>
 </body>
