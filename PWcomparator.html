@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pulse Width Comparator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/normalize.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+		<div class="container">
+      <h1>Pulse Width Comparator</h1>
+      <p>Microcontrollers can do all kinds of things these days, but they only have so many I/O pins, and they only have so much memory. For some reason or other, it may be advantageous to do some processing with an external circuit. For example: say you have a complicated control system with multiple PWM controlled actuators that requires remote switching between manual RC and autonomous feedback control. One way to do it would be to read a ppm signal from the radio reciever, decode using interrupts, and then, based on the decoded value from a dedicated override pulse, write pwm values obtained either from the radio controller, or from the feedback control system, to output pins. This doesn't waste too many pins, but the MCU has to do a good amount of work, even when the system is manually controlled -- so manual override won't help in the case of a computer problem. Also, you might not even have a ppm train output on your reciever. In that case, you could modify the above scenario by reading all the individual pwm signals into individual I/O pins, but now we've gone and wasted a bunch of pins, and we still haven't addressed the possiblity of computer malfunction. </p>
+      <p>A robust solution will probably involve some type of ppm or pwm decoding external to the mcu, and a multiplexing circuit for selecting the appropriate control signals. There exist commercial ppm and pwm decoders, but rather than read about that crap, us engineers should design a minimalist solution that meets our needs. This brings us to the title: remember how in the example we wanted one of the radio control signals to act to switch between manual and autonomous control? Well this basically means we want to know if a pulse width is longer or shorter than some reference -- therefore, we want a pulse width comparator.</p>
+      <p>More on this in a couple hours. I have to visit the grandparents.</p>
+
+		</div>
+</body>
+</html>
