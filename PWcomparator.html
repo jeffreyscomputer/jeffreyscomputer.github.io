@@ -19,7 +19,7 @@
       <h2>Modification of a Common Circuit</h2>
       <p>Probably everyone has seen the following circuit in the <a href="http://www.ti.com/lit/ds/symlink/lm124-n.pdf" target = "_blank">LM324 datasheet</a></p>
       <img class="displayed" src="images/lm324VCO.PNG" />
-      <p>It turns out, this will do exactly what we need if we (1) remove the feedback, and instead apply the pulse to the bas of the bjt and (2) change a couple resistor values. As can be seen on the right of the picture, the output of the first opamp is a symmetrical triangle wave, meaning that the effect of opening or closing the switch (bjt) is simply to invert the slope of the integrators output. If you remember, our signal of interest has a period of roughly 20ms and a pulse width between 1 and 2ms. The short of the story I am about to tell ends with the following pictures: </p>
+      <p>It turns out, this will do exactly what we need if we (1) remove the feedback, and instead applying the pulse to the base of the bjt and (2) change a couple resistor values and the capacitor value. As can be seen on the right of the picture, the output of the first opamp is a symmetrical triangle wave, meaning that the effect of opening or closing the switch (bjt) is simply to invert the slope of the integrators output. If you remember, our signal of interest has a period of roughly 20ms and a pulse width between 1 and 2ms. The short of the story I am about to tell ends with the following pictures: </p>
       <img class="displayed" src="images/pw_comp.PNG" />
       <img class="displayed" src="images/pw_comp_timing.PNG" />
       <p>I will explain this tomorrow</p>
