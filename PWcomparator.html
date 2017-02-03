@@ -51,12 +51,12 @@
 			<p>The time constant should thus be in the range:</p>
 				\[10ms < R_1 C_1 < 250ms\]
 			<p>And that's all it takes. I made a quick version of this circuit using resistor and capacitor values that were both easy to find and reasonably close to providing the specs I wanted. I ended up with a R1C1 time constant of 30ms, and an R1/R2 ratio of 15. Also, I didn't mention it, but the second op amp is configured as a schmitt trigger to give a nice digital output. Everyone probably already knew that.</p>
-				<img src="images/pwCOMP_photo_testRIG.PNG" />
+				<img src="images/pwCOMP_photo_testRIG.jpg" />
 			<p>I have an OSEP pro mini providing the PWM signal, with the pulse width controlled by the pot on the right. The pulse width comparator is everything in between the pro mini and the LED, if you can see that. The two 7400 quad nand gates are wired as a 2 bit, 2 input multiplexer. The inputs and outputs of these are the two red leads coming in at the bottom, the two orange leads coming in at the top, and the two green leads going off to the side, repsectively. I took some scope snape shots: </p>
-				<img src="images/pwCOMP_sim_1000.PNG" />
+				<img src="images/pwCOMP_sim_p1000.PNG" />
 			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
-				<img src="images/pwCOMP_sim_2000.PNG" />
-				
+				<img src="images/pwCOMP_sim_p2000.PNG" />
+
 		</div>
 
 </body>
