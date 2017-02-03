@@ -28,9 +28,9 @@
 			<p>The output of a simple op amp integrator like this is given by: </p>
 				\[v_{int}(t) = -\frac{1}{RC}\int_0^t{v_{in}(\tau)\,d\tau}\]
 			<p>where "Vin" is the difference between the voltage at the integrator input and the voltage at the op amp's noninverting input. In the circuits above, the inputs are constant voltages, so the integrals reduces to the products of the input voltages and the elapsed time in seconds. For configuration 1, we have:</p>
-				\[v_{int}(t) = -\frac{Vdd}{2R_1 C_1}t\]
+				\[v_{int(low)}(t) = -\frac{Vdd}{2R_1 C_1}t\]
 			<p>For configuration 2, we have:</p>
-				\[v_{int}(t) = \frac{(R_1 - R_2)Vdd}{2R_1 R_2 C_1}t\]
+				\[v_{int(high)}(t) = \frac{(R_1 - R_2)Vdd}{2R_1 R_2 C_1}t\]
 			<p>In the time domain, these are ramps with well defined slopes. Now we have to decide what to do with this information.</p>
 			<h2>Design</h2>
 			<p>We want this circuit to be able to distinguish between long pulses (1.5 to 2ms) and short pulses (1 to 1.5ms). Can this be done? Well, looking at the output equations above, we see that when the switch is open (low input signal) the slope is negative. On the other hand, when the switch is closed (high input signal), the slope will be positive if R1 > R2. So an incoming pulse signal will cause the output to be something like an asymetrical triangle wave.</p>
@@ -41,9 +41,15 @@
 			<p>if the pulse width were increased, the increase in the output voltage over the interval "t high" will excede the magnitude of the decrease over the interval "t low". The average value of the output would then increase until the amplifier saturates. The opposite would be true if the pulse width were reduced -- ultimately the amplifier will saturate in the opposite direction. This is exactly the behavior we were looking for. So let's design this thing to give a stable asymetrical triangle wave output with an input with a period of 20ms and a pulse width is 1.5ms. Let's set the ratio of the slopes to be:</p>
 				\[\frac{m_2}{m_1} = -\frac{20ms - 1.5ms}{1.5ms} =-\frac{37}{3}\]
 			<p>Using the equations above, we get:</p>
-				\[\frac{m_2}{m_1} = -\frac{\frac{(R_1-R_2)Vdd}{2R_1 R_2 C_1}}{-\frac{Vdd}{2R_1 C_1}} = \frac{R_2-R_1}{R_2}\]
-			<p>Comnbining and simplifying, we get:</p>
+				\[\frac{m_2}{m_1} = \frac{\frac{(R_1-R_2)Vdd}{2R_1 R_2 C_1}}{-\frac{Vdd}{2R_1 C_1}} = \frac{R_2-R_1}{R_2}\]
+			<p>Combining and simplifying, we get:</p>
 				\[R_1 = \frac{40}{3}R_2\]
+			<p>Note that this is dependent not only on the pulse width in question, but also on the pulse signal period.</p>
+			<p>The next thing to decide is what the magnitudes of the slopes should be. There are a couple considerations: since we are opperating with a Vdd of 5V, and a pulse period of 20ms, we certainly don't want any slopes greater than 250 V/s (when pulse signal is low). We also don't want the circuit to respond too slowly. Decreasing the slopes has the effect of increasing the noise margin, and at the same time has the effect of reducing the speed of the cirucit. Let's say we want this thing to be able to do it's job in under 1/2 of a second. The minimum slope would then be 10 V/s (when pulse signal is low).</p>
+			<p>Using the equation above for the output voltage during the "off" interval, we get:</p>
+				\[10\,V/s < \frac{5}{2R_1 C_1} < 250\,V/s\]
+			<p>And that's all it takes.</p>
 		</div>
+
 </body>
 </html>
