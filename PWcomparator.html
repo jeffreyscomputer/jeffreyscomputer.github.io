@@ -18,11 +18,11 @@
       <p>An easy analog way to infer the duration of a pulse is to use an integrator: starting with a zero output, just apply a constant input for the duration of the pulse, and a zero input otherwise. Once the pulse has passed, measure the voltage at the output and congratulations: given that you know the values of your resistor and your capacitor, and the input voltage, you now know how much time has elapsed. We could make a very accurate pulse width to analog voltage converter using a resettable integrator and a sample and hold circuit, and then apply that signal to a simple voltage comparator, but two things: (1) we don't have to do that, and (2) we don't want to do that. There is an easier way.</p>
       <h2>Modification of a Common Circuit</h2>
       <p>Probably everyone has seen the following circuit in the <a href="http://www.ti.com/lit/ds/symlink/lm124-n.pdf" target = "_blank">LM324 datasheet</a></p>
-      <img class="displayed" src="images/lm324VCO.PNG" />
+      <img src="images/lm324VCO.PNG" />
       <p>It turns out, this will do exactly what we need if we (1) remove the feedback, and instead apply the pulse to the base of the bjt and (2) change a couple resistor values and the capacitor value. The circuit we are interested in looks like this:</p>
-      <img class="displayed" src="images/pwCOMP_schem_general.PNG" />
+      <img src="images/pwCOMP_schem_general.PNG" />
 			<p>Since the bjt is operating as a switch, the integrator section takes two distinct configurations: one when the switch is open (pulse signal low) and another when the switch is closed (pulse signal high).</p>
-			<img class="displayed" src="images/pwCOMP_schem_general.PNG" />
+			<img src="images/pwCOMP_schem_configs.PNG" />
 			<p>The voltage labled Vth is the thevenin equivalent voltage of the formed by the R1/R2 resistor divider across the source voltage: Vth = R2/(R1+R2)Vdd. </p>
 		</div>
 </body>
