@@ -46,9 +46,17 @@
 				\[R_1 = \frac{40}{3}R_2\]
 			<p>Note that this is dependent not only on the pulse width in question, but also on the pulse signal period.</p>
 			<p>The next thing to decide is what the magnitudes of the slopes should be. There are a couple considerations: since we are opperating with a Vdd of 5V, and a pulse period of 20ms, we certainly don't want any slopes greater than 250 V/s (when pulse signal is low). We also don't want the circuit to respond too slowly. Decreasing the slopes has the effect of increasing the noise margin, and at the same time has the effect of reducing the speed of the cirucit. Let's say we want this thing to be able to do it's job in under 1/2 of a second. The minimum slope would then be 10 V/s (when pulse signal is low).</p>
-			<p>Using the equation above for the output voltage during the "off" interval, we get:</p>
-				\[10\,V/s < \frac{5}{2R_1 C_1} < 250\,V/s\]
-			<p>And that's all it takes.</p>
+			<p>Using these requrements and the equation above for the output voltage during the "off" interval, we get:</p>
+				\[10 < \frac{5}{2R_1 C_1} < 250\]
+			<p>The time constant should thus be in the range:</p>
+				\[10ms < R_1 C_1 < 250ms\]
+			<p>And that's all it takes. I made a quick version of this circuit using resistor and capacitor values that were both easy to find and reasonably close to providing the specs I wanted. I ended up with a R1C1 time constant of 30ms, and an R1/R2 ratio of 15. Also, I didn't mention it, but the second op amp is configured as a schmitt trigger to give a nice digital output. Everyone probably already knew that.</p>
+				<img src="images/pwCOMP_photo_testRIG.PNG" />
+			<p>I have an OSEP pro mini providing the PWM signal, with the pulse width controlled by the pot on the right. The pulse width comparator is everything in between the pro mini and the LED, if you can see that. The two 7400 quad nand gates are wired as a 2 bit, 2 input multiplexer. The inputs and outputs of these are the two red leads coming in at the bottom, the two orange leads coming in at the top, and the two green leads going off to the side, repsectively. I took some scope snape shots: </p>
+				<img src="images/pwCOMP_sim_1000.PNG" />
+			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
+				<img src="images/pwCOMP_sim_2000.PNG" />
+				
 		</div>
 
 </body>
