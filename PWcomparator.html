@@ -37,7 +37,7 @@
 			<p>If we were trying to get a stable periodic output, we would want the ratio of the slopes to satisfy the following:</p>
 				\[m_1 t_{low} = -m_2 t_{high}\]
 			<p>If we did this, we would expect an output like this:</p>
-			<img src="images/pwCOMP_sim_1328.PNG" />
+			<img src="images/pwCOMP_sim_p1328.PNG" />
 			<p>if the pulse width were increased, the increase in the output voltage over the interval "t high" will excede the magnitude of the decrease over the interval "t low". The average value of the output would then increase until the amplifier saturates. The opposite would be true if the pulse width were reduced -- ultimately the amplifier will saturate in the opposite direction. This is exactly the behavior we were looking for. So let's design this thing to give a stable asymetrical triangle wave output with an input with a period of 20ms and a pulse width is 1.5ms. Let's set the ratio of the slopes to be:</p>
 				\[\frac{m_2}{m_1} = -\frac{20ms - 1.5ms}{1.5ms} =-\frac{37}{3}\]
 			<p>Using the equations above, we get:</p>
