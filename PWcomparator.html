@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/normalize.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
+	<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 </head>
 <body>
@@ -23,7 +24,9 @@
       <img src="images/pwCOMP_schem_general.PNG" />
 			<p>Since the bjt is operating as a switch, the integrator section takes two distinct configurations: one when the switch is open (pulse signal low) and another when the switch is closed (pulse signal high).</p>
 			<img src="images/pwCOMP_schem_configs.PNG" />
-			<p>The voltage labled Vth is the thevenin equivalent voltage of the formed by the R1/R2 resistor divider across the source voltage: Vth = R2/(R1+R2)Vdd. </p>
+			<p>(Note that the voltage labled Vth is the thevenin equivalent voltage of the formed by the R1/R2 resistor divider across the source voltage: Vth = R2/(R1+R2)Vdd)</p>
+			<p>The output of a simple op amp integrator like this is given by: </p>
+				\[v_{int}(t) = -\frac{1}{RC}\int_0^t{v_{in}(\tau)\,d\tau}\]
 		</div>
 </body>
 </html>
