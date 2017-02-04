@@ -20,23 +20,32 @@
       <h2>Modification of a Common Circuit</h2>
       <p>Probably everyone has seen the following circuit in the <a href="http://www.ti.com/lit/ds/symlink/lm124-n.pdf" target = "_blank">LM324 datasheet</a></p>
       <img src="images/lm324VCO.PNG" />
-      <p>As it turns out, this will do exactly what we want if we (1) remove the feedback, and instead apply the incoming pulse signal to the base of the bjt and (2) change a few resistor values and the capacitor value. The circuit we are interested in looks like this:</p>
+      <p>As it turns out, this circuit will do exactly what we want if we (1) remove the feedback, and instead apply the incoming pulse signal to the base of the bjt and (2) change a few resistor values and the capacitor value. The circuit we are interested in looks like this:</p>
       <img src="images/pwCOMP_schem_general.PNG" />
 			<p>Since the bjt is operating as a switch, the integrator section takes two distinct configurations: one when the switch is open (pulse signal low) and another when the switch is closed (pulse signal high).</p>
 			<img src="images/pwCOMP_schem_configs.PNG" />
-			<p>(Note that the voltage labled Vth is the thevenin equivalent voltage of the formed by the R1/R2 resistor divider across the source voltage: Vth = R2/(R1+R2)Vdd)</p>
+			<p>(Note that the voltage labled Vth is the thevenin equivalent voltage formed by the R1/R2 resistor divider across Vdd: Vth = R2/(R1+R2)Vdd)</p>
 			<p>The output of a simple op amp integrator like this is given by: </p>
 				\[v_{int}(t) = -\frac{1}{RC}\int_0^t{v_{in}(\tau)\,d\tau}\]
 			<p>where "Vin" is the difference between the voltage at the integrator input and the voltage at the op amp's noninverting input (the reference input). In the circuits above, the inputs are constant voltages, so the integrals reduce to the products of the input voltages and the elapsed times in seconds. For configuration 1, we have:</p>
 				\[v_{int(low)}(t) = -\frac{Vdd}{2R_1 C_1}t\]
 			<p>For configuration 2, we have:</p>
 				\[v_{int(high)}(t) = \frac{(R_1 - R_2)Vdd}{2R_1 R_2 C_1}t\]
-			<p>In the time domain, these are ramps with well defined slopes. this is great. Now we have to decide what to do with this information.</p>
-			<h2>Design</h2>
+			<p>In the time domain, these are ramps with well defined slopes. This is great.</p>
+			<p>The second op amp fors a comparator with hysteresis (a Schmitt trigger) This also takes two configurations: one when the output is high, and one when the output is low.</p>
+			<img src="images/pwCOMP_schem_configs2.PNG" />
+			<p>If we had a rail to rail op amp, the threshold voltage (the input of v+ to the op amp) in the first case is given by:</p>
+				\[v+ = \frac{R_8}{R_8 + R_6||R_7}\frac{Vdd}{2}\]
+			<p>The threshold voltage in the second case is:</p>
+				\[v+ = \frac{R_8 + 2R_6||R_7}{R_8 + R_6||R_7}\frac{Vdd}{2}\]
+			<p>The difference between these two tells us the maximum signal amplitude centered at half of Vdd that will not cause a change in the output.</p>
+				\[V_{tol} = \frac{R_6||R_7}{R_8 + R_6||R_7}Vdd\]
+			<p>Now let's figure out what to do with this information.</p>
+			<h2>Design 1:The Integrator Section</h2>
 			<p>We want this circuit to be able to distinguish between long pulses (1.5 to 2ms) and short pulses (1 to 1.5ms). Can this be done? Well, looking at the output equations above, we see that when the switch is open (low input signal) the slope is negative. On the other hand, when the switch is closed (high input signal), the slope will be positive if R1 > R2. So an incoming pulse signal can cause the output to be something like an asymetrical triangle wave if the right component values are chosen.</p>
 			<p>If we were trying to get a stable periodic output, we would want the ratio of the slopes to satisfy the following:</p>
 				\[m_1 t_{low} = -m_2 t_{high}\]
-			<p>If we did this, we would expect an output like this:</p>
+			<p>If we did this, we would expect the integrator's output to look like this:</p>
 			<img src="images/pwCOMP_sim_100n.PNG" />
 			<p>if the pulse width were increased, the increase in the output voltage over the interval "t high" will excede the magnitude of the decrease over the interval "t low". The average value of the output would then increase until the amplifier saturates. The opposite would be true if the pulse width were reduced -- the negative slope will prevail and the output will saturate in the opposite direction. This is exactly the behavior we were looking for. So let's design this thing to give a stable asymetrical triangle wave output with an input with a period of 20ms and a pulse width is 1.5ms. Let's set the ratio of the slopes to be:</p>
 				\[\frac{m_2}{m_1} = -\frac{20ms - 1.5ms}{1.5ms} =-\frac{37}{3}\]
@@ -44,8 +53,7 @@
 				\[\frac{m_2}{m_1} = \frac{\frac{(R_1-R_2)Vdd}{2R_1 R_2 C_1}}{-\frac{Vdd}{2R_1 C_1}} = \frac{R_2-R_1}{R_2}\]
 			<p>Combining and simplifying, we get:</p>
 				\[R_1 = \frac{40}{3}R_2 \approx 13.33 R_2\]
-			<p>Note that this is dependent not only on the pulse width in question, but also on the pulse signal period.</p>
-			<p>The next thing to decide is what the magnitudes of the slopes should be. There are a couple considerations: since we are opperating with a Vdd of 5V, and a pulse period of 20ms, we certainly don't want any slopes greater than 250 V/s (when pulse signal is low). We also don't want the circuit to respond too slowly. Decreasing the slopes has the effect of increasing the noise margin, and at the same time has the effect of reducing the speed of the cirucit. Let's say we want this thing to be able to do it's job in under 1/2 of a second. The minimum slope would then be 10 V/s (when pulse signal is low).</p>
+			<p>The next thing to decide is what the magnitudes of the slopes should be. There are a couple considerations: since we are opperating with a Vdd of 5V, and a pulse period of 20ms, we certainly don't want any slopes greater than 250 V/s (when pulse signal is low). We don't even want to come close to that. We also don't want the circuit to respond too slowly. Decreasing the slopes has the effect of increasing the noise margin, and at the same time has the effect of reducing the speed of the cirucit. Let's say we want this thing to be able to do it's job in under 1/2 of a second. The minimum slope would then be 10 V/s (when pulse signal is low).</p>
 			<p>Using these requrements and the equation above for the output voltage during the "off" interval, we get:</p>
 				\[10 < \frac{5}{2R_1 C_1} < 250\]
 			<p>The time constant should thus be in the range:</p>
@@ -53,13 +61,14 @@
 			<p>And that's all it takes. I made a quick version of this circuit using resistor and capacitor values that came close to giving the ratios and time constants I wanted.</p>
 			<img src="images/pwCOMP_photo_testHIGH.jpg" />
 			<p>I have an OSEP pro mini providing the PWM signal, with the pulse width controlled by the pot to the right of it. The pulse width comparator circuit is composed of the LM358 dual op amp chip (the 8 pin dip chip) and all the resistors and capacitors in its viscinity. The two 7400 quad nand gates are wired as 2 2 input multiplexers -- one set of inputs is grounded and the other set is held high, and I have blue and green LEDs on the outputs of the multiplexers to indicate which inputs are active. </p>
-			<p>The R1/R2 ratio I ended up with was 15 -- this means the circuit will produce a stable output when given a pulse with a width of 1.25ms. The time constant I ended up with was 30ms -- this is on the fast end. We expect the output swing of the stable triangle wave to be about a third of Vdd. Let's look at that triangle wave:</p>
+			<p>The R1/R2 ratio I ended up with was 15 -- this means we expect the circuit will produce a stable output when given a pulse with a width of 1.25ms. The time constant I ended up with was 30ms -- this is on the fast end. We expect the output swing of the stable triangle wave to be about a third of Vdd. Let's look at that triangle wave:</p>
 					<img src="images/pwCOMP_sim_p1328.PNG" />
-			<p>Also, I didn't mention it, but the second op amp is configured as a schmitt trigger to give a nice digital output. Everyone probably already knew that. The basic idea is you want enough hysteresis so that the periodic swing of the integrators output won't cause the comparator output to toggle while transitioning. </p>
-
+			<p>This is exactly what we expected.</p>
+			<p>Here are some more scope shots.</p>
 				<img src="images/pwCOMP_sim_p1000.PNG" />
 			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
 				<img src="images/pwCOMP_sim_p2000.PNG" />
+			<h2>Design 2: An Appropriate Comparator</h2>
 			<h2>Concluding Thoughts</h2>
 			<p>I described a pretty simple circuit that can be pretty useful. The moral of the story is that, in certain situations, a simple analog circuit can save you a good amount of processing power and memory.</p>
 		</div>
