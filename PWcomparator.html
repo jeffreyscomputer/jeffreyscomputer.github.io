@@ -13,7 +13,7 @@
 		<div class="container">
       <h1>Pulse Width Comparator</h1>
       <p>Hypothetical problem: I have a system with multiple PWM controlled actuators, and I desire to have the capability to remotely switch between autonomous feedback control and manual radio control. Ideally, I would like the manual controls to continue to work in the case that the feedback controller (MCU) stops working. And let's say I have an 8 channel radio reciever with 8 individual PWM outputs.</p>
-      <p>The task of switching between manual and autonomous control for N actuators is easily accomplished with N 2 input multiplexers. This is no big deal. Controlling the multiplexers on the other hand requires some work. If we are to use one of the RC channels to do the task, we need to be able to assign two distinct digital values to two different pulse widths, or ranges of widths in some way. In other words, we need a circuit which effectively compares the pulse width from a reciever channel with a reference, and output either a high or low signal accordingly. </p>
+      <p>The task of switching between manual and autonomous control for N actuators is easily accomplished with N parallel 2 input multiplexers. This is no big deal. Controlling the multiplexers on the other hand requires some work. If we are to use one of the RC channels to do the task, we need to be able to assign two distinct digital values to two different pulse widths, or ranges of widths in some way. In other words, we need a circuit which effectively compares the pulse width from a reciever channel with a reference, and output either a high or low signal accordingly. </p>
       <h2>Time Measurement: The Integrator</h2>
       <p>From what I gather via googling, most multichannel RC systems use a ppm signal with delays ranging from 1 to 2ms, with a frame period of approximately 20ms. Some sources claim 22.5ms, some 27ms... but the 1 to 2 ms range for pulse separation (or pulse width once decoded as separate pwm channels) seems by all accounts to be the standard. For the purpose of solving our problem, we simply need to be able to detect the difference between a long and a short pulse.</p>
       <p>An easy analog way to infer the duration of a pulse or something is to use an integrator: starting with zero at the output, and applying a constant input over the duration of a pulse, the output voltage will indicate the pulse duration, given that you know the values of your resistor and your capacitor, and the input voltage. We could make a very accurate pulse width to analog voltage converter using a resettable integrator along with a sample and hold circuit and some fairly complicated control pulse generating circuitry, but two things: (1) we don't need to do that, and (2) we don't want to do that. There is an easier way.</p>
@@ -44,7 +44,7 @@
 			<h2>Design 1:The Integrator Section</h2>
 			<p>We want this circuit to be able to distinguish between long pulses (1.5 to 2ms) and short pulses (1 to 1.5ms). Can this be done? Well, looking at the output equations above, we see that when the switch is open (low input signal) the slope is negative. On the other hand, when the switch is closed (high input signal), the slope will be positive if R1 > R2. So an incoming pulse signal can cause the output to be something like an asymetrical triangle wave if the right component values are chosen.</p>
 			<p>If we were trying to get a stable periodic output, we would want the ratio of the slopes to satisfy the following:</p>
-				\[m_1 t_{low} = -m_2 t_{high}\]
+				\[m_1 T_{low} = -m_2 T_{high}\]
 			<p>If we did this, we would expect the integrator's output to look like this:</p>
 			<img src="images/pwCOMP_sim_100n.PNG" />
 			<p>if the pulse width were increased, the increase in the output voltage over the interval "t high" will excede the magnitude of the decrease over the interval "t low". The average value of the output would then increase until the amplifier saturates. The opposite would be true if the pulse width were reduced -- the negative slope will prevail and the output will saturate in the opposite direction. This is exactly the behavior we were looking for. So let's design this thing to give a stable asymetrical triangle wave output with an input with a period of 20ms and a pulse width is 1.5ms. Let's set the ratio of the slopes to be:</p>
@@ -69,6 +69,9 @@
 			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
 				<img src="images/pwCOMP_sim_p2000.PNG" />
 			<h2>Design 2: An Appropriate Comparator</h2>
+			<p>When I told you that the ratios of resistances determined how big of a signal the comparator will ignore, I wasn't lying to you. Why would you even think that? If we ignore the fact that we chose some values for R1 and R2 and C1 already, we might want to look at a general design equation for this thing. We do this by setting the maximum voltage swing over the "off" interval to be less than size of the tolerance band of the comparator. After simplifying, we get this:</p>
+				\[\frac{T_{low}}{2R_1 C_1} < \frac{R_6||R_7}{R_8 + R_6||R_7}\]
+
 			<h2>Concluding Thoughts</h2>
 			<p>I described a pretty simple circuit that can be pretty useful. The moral of the story is that, in certain situations, a simple analog circuit can save you a good amount of processing power and memory.</p>
 		</div>
