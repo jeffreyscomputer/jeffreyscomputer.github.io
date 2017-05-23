@@ -68,12 +68,14 @@
 				<img src="images/pwCOMP_sim_p1000.PNG" />
 			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
 				<img src="images/pwCOMP_sim_p2000.PNG" />
-			<h2>Design 2: An Appropriate Comparator</h2>
+			<h2>Design 2: An Appropriate Voltage Comparator</h2>
 			<p>When I told you that the ratios of resistances determined how big of a signal the comparator will ignore, I wasn't lying to you. Why would you even think that? If we ignore the fact that we chose some values for R1 and R2 and C1 already, we might want to look at a general design equation for this thing. We do this by setting the maximum voltage swing over the "off" interval to be less than size of the tolerance band of the comparator. After simplifying, we get this:</p>
 				\[\frac{T_{low}}{2R_1 C_1} < \frac{R_6||R_7}{R_8 + R_6||R_7}\]
-			<p>Remember that the right hand side of the equation was derived under the assumption that we had a rail to rail op amp, which the LM358 is not. For this reason, we either make the time constant a little longer, or we make R8 a little smaller. It turns out that if R6=R7=R8, and the time constant is 30ms like we had before, the above equation is satisfied. But since the op amp saturates at a level higher than ground, and at a lower level than Vdd, we still get glitches. The easiest way to solve this problem is to increase the size of the capacitor. I had it at 200nF, so I'm gonna change it to 680nF because that is what I had near me. Now the time constant is 102ms, which is still within our requirements, and everything is as it should be.</p>
+			<p>Remember that the right hand side of the equation was derived under the assumption that we had a rail to rail op amp, which the LM358 is not. For this reason, we either make the time constant a little longer, or we make R8 a little smaller. It turns out that if R6=R7=R8, and the time constant is 30ms like we had before, the above equation is satisfied. But since the op amp saturates at a level higher than ground, and at a lower level than Vdd, we still get glitches. One easy way to solve this problem is to increase the size of the capacitor. I had it at 200nF, so I changed it to 680nF because that is what I had near me. Now the time constant is 102ms, which is still within our requirements, and everything is as it should be.</p>
 			<h2>Concluding Thoughts</h2>
 			<p>I described a pretty simple circuit that can be pretty useful. The moral of the story is that, in certain situations, a simple analog circuit can save you a good amount of processing power and memory.</p>
+			<p>Below, I have a picture of a prototype which I gave to a group of CSULB Aerospace students.</p>
+			<img src="images/pwCOMP_shield.PNG" />
 		</div>
 
 </body>
