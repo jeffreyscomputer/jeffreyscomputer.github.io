@@ -74,8 +74,9 @@
 			<p>Remember that the right hand side of the equation was derived under the assumption that we had a rail to rail op amp, which the LM358 is not. For this reason, we either make the time constant a little longer, or we make R8 a little smaller. It turns out that if R6=R7=R8, and the time constant is 30ms like we had before, the above equation is satisfied. But since the op amp saturates at a level higher than ground, and at a lower level than Vdd, we still get glitches. One easy way to solve this problem is to increase the size of the capacitor. I had it at 200nF, so I changed it to 680nF because that is what I had near me. Now the time constant is 102ms, which is still within our requirements, and everything is as it should be.</p>
 			<h2>Concluding Thoughts</h2>
 			<p>I described a pretty simple circuit that can be pretty useful. The moral of the story is that, in certain situations, a simple analog circuit can save you a good amount of processing power and memory.</p>
-			<p>Below, I have a picture of a prototype which I gave to a group of CSULB Aerospace students.</p>
+			<p>Below, I have a picture of a prototype Arduino Mega sheild which I gave to a group of CSULB Aerospace students.</p>
 			<img src="images/pwCOMP_shield.jpg" />
+			<p>The shield acts as a hub for the actuators, sensors and control inputs required for a powered paraglider, which was to be used as the guided descent stage of a recoverable rocket payload. The circuit is essentially the same as the breadboarded circuit described above, with some added IO for a GPS unit, a 9 channel radio reciever, a servo and a BLDC fan motor. One channel from the reciever is used to control the pulse width comparator, which selects the source of the two actuation control signals -- either manual control from the radio reciever, or autonomous control from an adaptive digital controller programmed into the Arduino.</p>
 		</div>
 
 </body>
