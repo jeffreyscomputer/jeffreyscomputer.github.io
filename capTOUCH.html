@@ -15,7 +15,7 @@
       <h2>The Op Amp Pole</h2>
       <p>Sometimes, the best things about devices are their apparent limitations. A professor of mine wrote a <a href="https://www.researchgate.net/publication/230640697_Some_Partially_Active_R_Filter_Circuits" target="_blank">
 			paper</a> which describes some "partially active R filters" -- filters that utilize IC amplifier poles as capacitors, so to speak. This gave me the idea to go ahead and exploit the finite bandwidth of a common IC op amp to make an oscillator with a frequency dependent amplitude.</p>
-			<p>An op amp relaxation oscilator is a fine candidate because the amplifier is operating open loop (b=0), so the corner frequency will be relatively low.</p>
+			<p>An op amp relaxation oscillator is a fine candidate because the amplifier is operating open loop (b=0), so the corner frequency will be relatively low.</p>
 			<img class="displayed" src="images/capTOUCH_FreqRESP.PNG" />
 			<p>The frequency dependence of a relaxation oscillator's amplitude was easy to verify with a multimeter, but since I couldn't see the shape of the waveform, I couldn't tell for sure if the effect was due to a simple amplitude rolloff, or nonlinear slewing (I didn't have a scope at the time). Either will do the job, and different op amps will have different characteristics. According to the <a href="http://www.ti.com/lit/ds/symlink/ne5532.pdf" target="_blank">
 			NE5532 datasheet</a>, typical unity-gain bandwidth is 10MHz, and typical slew rate is 9V/us, and since the output is swinging its full range, slewing is expected. The important design consideration is finding the frequency and duty cycle which maximizes the amplitude sensitivity to operational ranges of measured capacitance.</p>
@@ -25,6 +25,30 @@
       <p>The capacitor labeled Cinput is the capacitance to ground of the person touching the input node, and it's value is stepped from 10pF down to 2pF in 2pF steps for a grand total of 5 transient simulation runs, as shown in the graph below, with red corresponding to Cin = 10pF and blue corresponding to Cin = 2pF.</p>
       <img class="displayed" src="images/capTOUCH_WAVE_osc.PNG" />
       <p>Now apply this signal to a peak detector and a comparator and you have yourself a touch sensitive switch.</p>
+			<h2>The Complete System</h2>
+			<p>The goal here was to control 16 solenoid valves using touch sensors. So I had to make a device with 16 adjustable channels in a reasonably compact form factor. Here is what the main control module looks like:</p>
+			<img class="displayed" src="images/captouch-front.JPG" />
+			<p>The red RCA jacks are the inputs for the touch surfaces. I made some short cables from speaker wire to get from here to there:</p>
+			<img class="displayed" src="images/captouch-conductors.JPG" />
+			<p>Anyway, the 1/8" phone jacks are the control outputs to the solenoid switches. There is also a power jack for a 12V power supply and a power switch for convenience. On th back side, there is access to two trimpots for each channel:</p>
+			<img class="displayed" src="images/captouch-back.JPG" />
+			<p>Kind of hard to see in there... And also, the "finish" on this box is kind of ridiculous. When I make a sheetmetal box I usually apply some spray paint and make my break marks with a knife. Somehow I folded this thing inside out, but the artist didn't mind. Lucky me.</p>
+			<p>This is how it comes apart -- if that ever needs to happen:</p>
+			<img class="displayed" src="images/captouch-exploded.JPG" />
+			<img class="displayed" src="images/captouch-disassembled.JPG" />
+			<p>So there are six "cards", five of which have three touch sensor channels, and the other which has just one and the power distribution stuff. Each of the five cards looks like this:</p>
+			<img class="displayed" src="images/captouch-card-front.JPG" />
+			<p>The trimpots can be seen at the rear.</p>
+			<img class="displayed" src="images/captouch-card-bottom.JPG" />
+			<p>All hand routed on protoboard with the sheetmetal face riveted to the pcb.</p>
+			<p>The solenoid valves required a decent amount of current, so I used some high side FET switches (IRF9540 P-channel) as shown in the switch module:</p>
+			<img class="displayed" src="images/captouch-switches.JPG" />
+			<p>The outputs to the solenoid valves are the two pin molex connectors which might be hard to see in this picture, but there's nothing I can do about that. This unit takes a 12V power supply, and control signals for each channel, which come in at the million pin DSUB connector. I found the DSUB to be really convenient because you can get pretty long ones for fairly cheap. To convert from the phone jack output of the control module to the DSUB on the switch module, I made this little connector:</p>
+			<img class="displayed" src="images/captouch-dsub-front.JPG" />
+			<p>The whole system, minus the solenoid valves themselves and one of the power supplies looks like this:</p>
+			<img class="displayed" src="images/captouch-kit.JPG" />
+			<p>And it all came together pretty well. </p>
+
 		</div>
 </body>
 </html>
