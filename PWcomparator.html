@@ -19,11 +19,11 @@
       <p>An easy analog way to infer the duration of a pulse or something is to use an integrator: starting with zero at the output, and applying a constant input over the duration of a pulse, the output voltage will indicate the pulse duration, given that you know the values of your resistor and your capacitor, and the input voltage. We could make a very accurate pulse width to analog voltage converter using a resettable integrator along with a sample and hold circuit and some fairly complicated control pulse generating circuitry, but two things: (1) we don't need to do that, and (2) we don't want to do that. There is an easier way.</p>
       <h2>Modification of a Common Circuit</h2>
       <p>Probably everyone has seen the following circuit in the <a href="http://www.ti.com/lit/ds/symlink/lm124-n.pdf" target = "_blank">LM324 datasheet</a></p>
-      <img src="images/lm324VCO.PNG" />
+      <img class="displayed" src="images/lm324VCO.PNG" />
       <p>As it turns out, this circuit will do exactly what we want if we (1) remove the feedback, and instead apply the incoming pulse signal to the base of the bjt and (2) change a few resistor values and the capacitor value. The circuit we are interested in looks like this:</p>
-      <img src="images/pwCOMP_schem_general.PNG" />
+      <img class="displayed" src="images/pwCOMP_schem_general.PNG" />
 			<p>Since the bjt is operating as a switch, the integrator section takes two distinct configurations: one when the switch is open (pulse signal low) and another when the switch is closed (pulse signal high).</p>
-			<img src="images/pwCOMP_schem_configs.PNG" />
+			<img class="displayed" src="images/pwCOMP_schem_configs.PNG" />
 			<p>(Note that the voltage labled Vth is the thevenin equivalent voltage formed by the R1/R2 resistor divider across Vdd: Vth = R2/(R1+R2)Vdd)</p>
 			<p>The output of a simple op amp integrator like this is given by: </p>
 				\[v_{int}(t) = -\frac{1}{RC}\int_0^t{v_{in}(\tau)\,d\tau}\]
@@ -33,7 +33,7 @@
 				\[v_{int(high)}(t) = \frac{(R_1 - R_2)Vdd}{2R_1 R_2 C_1}t\]
 			<p>In the time domain, these are ramps with well defined slopes. This is great.</p>
 			<p>The second op amp fors a comparator with hysteresis (a Schmitt trigger) This also takes two configurations: one when the output is high, and one when the output is low.</p>
-			<img src="images/pwCOMP_schem_configs2.PNG" />
+			<img class="displayed" src="images/pwCOMP_schem_configs2.PNG" />
 			<p>If we had a rail to rail op amp, the threshold voltage (the input of v+ to the op amp) in the first case is given by:</p>
 				\[v+ = \frac{R_8}{R_8 + R_6||R_7}\frac{Vdd}{2}\]
 			<p>The threshold voltage in the second case is:</p>
@@ -46,7 +46,7 @@
 			<p>If we were trying to get a stable periodic output, we would want the ratio of the slopes to satisfy the following:</p>
 				\[m_1 T_{low} = -m_2 T_{high}\]
 			<p>If we did this, we would expect the integrator's output to look like this:</p>
-			<img src="images/pwCOMP_sim_100n.PNG" />
+			<img class="displayed" src="images/pwCOMP_sim_100n.PNG" />
 			<p>if the pulse width were increased, the increase in the output voltage over the interval "t high" will excede the magnitude of the decrease over the interval "t low". The average value of the output would then increase until the amplifier saturates. The opposite would be true if the pulse width were reduced -- the negative slope will prevail and the output will saturate in the opposite direction. This is exactly the behavior we were looking for. So let's design this thing to give a stable asymetrical triangle wave output with an input with a period of 20ms and a pulse width is 1.5ms. Let's set the ratio of the slopes to be:</p>
 				\[\frac{m_2}{m_1} = -\frac{20ms - 1.5ms}{1.5ms} =-\frac{37}{3}\]
 			<p>Using the equations above, we get:</p>
@@ -59,15 +59,15 @@
 			<p>The time constant should thus be in the range:</p>
 				\[10ms < R_1 C_1 < 250ms\]
 			<p>And that's all it takes. I made a quick version of this circuit using resistor and capacitor values that came close to giving the ratios and time constants I wanted.</p>
-			<img src="images/pwCOMP_photo_testHIGH.jpg" />
+			<img class="displayed" src="images/pwCOMP_photo_testHIGH.jpg" />
 			<p>I have an OSEP pro mini providing the PWM signal, with the pulse width controlled by the pot to the right of it. The pulse width comparator circuit is composed of the LM358 dual op amp chip (the 8 pin dip chip) and all the resistors and capacitors in its viscinity. The two 7400 quad nand gates are wired as 2 2 input multiplexers -- one set of inputs is grounded and the other set is held high, and I have blue and green LEDs on the outputs of the multiplexers to indicate which inputs are active. </p>
 			<p>The R1/R2 ratio I ended up with was 15 -- this means we expect the circuit will produce a stable output when given a pulse with a width of 1.25ms. The time constant I ended up with was 30ms -- this is on the fast end. We expect the output swing of the stable triangle wave to be about a third of Vdd. Let's look at that triangle wave:</p>
-					<img src="images/pwCOMP_sim_p1328.PNG" />
+					<img class="displayed" src="images/pwCOMP_sim_p1328.PNG" />
 			<p>This is exactly what we expected.</p>
 			<p>Here are some more scope shots.</p>
-				<img src="images/pwCOMP_sim_p1000.PNG" />
+				<img class="displayed" src="images/pwCOMP_sim_p1000.PNG" />
 			<p>Above, I applied a 1ms pulse, and below I applied a 2ms pulse:</p>
-				<img src="images/pwCOMP_sim_p2000.PNG" />
+				<img class="displayed" src="images/pwCOMP_sim_p2000.PNG" />
 			<h2>Design 2: An Appropriate Voltage Comparator</h2>
 			<p>When I told you that the ratios of resistances determined how big of a signal the comparator will ignore, I wasn't lying to you. Why would you even think that? If we ignore the fact that we chose some values for R1 and R2 and C1 already, we might want to look at a general design equation for this thing. We do this by setting the maximum voltage swing over the "off" interval to be less than size of the tolerance band of the comparator. After simplifying, we get this:</p>
 				\[\frac{T_{low}}{2R_1 C_1} < \frac{R_6||R_7}{R_8 + R_6||R_7}\]
@@ -75,7 +75,7 @@
 			<h2>Concluding Thoughts</h2>
 			<p>I described a pretty simple circuit that can be pretty useful. The moral of the story is that, in certain situations, a simple analog circuit can save you a good amount of processing power and memory.</p>
 			<p>Below, I have a picture of a prototype Arduino Mega sheild which I gave to a group of CSULB Aerospace students.</p>
-			<img src="images/pwCOMP_shield.jpg" />
+			<img class="displayed" src="images/pwCOMP_shield.jpg" />
 			<p>The shield acts as a hub for the actuators, sensors and control inputs required for a powered paraglider, which was to be used as the guided descent stage of a recoverable rocket payload. The circuit is essentially the same as the breadboarded circuit described above, with some added IO for a GPS unit, a 9 channel radio reciever, a servo and a BLDC fan motor. One channel from the reciever is used to control the pulse width comparator, which selects the source of the two actuation control signals -- either manual control from the radio reciever, or autonomous control from an adaptive digital controller programmed into the Arduino.</p>
 		</div>
 
