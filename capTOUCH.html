@@ -10,6 +10,10 @@
 </head>
 <body>
 		<div class="container">
+			<p>
+				<a href="index.html">
+				Main Index</a>
+			</p>
       <h1>Analog Capacitive Touch Sensor</h1>
       <p>Touch sensors are everywhere these days, and can be designed really easily using an MCU, but the artist I was working for wanted something that worked similarly to a theremin for philosophical reasons. Now, a theremin works by extracting the beat frequency from two detuned high frequency oscillators, with one frequency fixed, and the other being varied by manually varying a capacitance. I didn't want to go too high in frequency because I wanted to use the bunch of NE5532s I had lying around, so I ditched the beat frequency thing. This design is based around an op amp relaxation oscillator, a simple peak detector and a comparator. I am only going to describe the first stage here because the output conditioning is super easy.</p>
       <h2>The Op Amp Pole</h2>

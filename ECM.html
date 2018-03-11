@@ -9,6 +9,10 @@
 </head>
 <body>
 		<div class="container">
+			<p>
+				<a href="index.html">
+				Main Index</a>
+			</p>
 			<h1>Troubleshooting and Repair of Engine Control Module</h1>
 			<p>A friend with a 1993 Mitsubishi Diamante experienced a major problem which caused 4 injectors to remain on all the time, so fuel would just pour out of the exhaust. A mechanic's diagnosis was a computer malfunction, but the exact cause remained unknown. The ECM was sent to several automotive computer specialists, and was judged "unrepairable" by at least one of them. As a last ditch effort to save the car, the engine control module was sent to me.</p>
       <p>The first thing I noticed when I got ahold of the ECM was that several capacitors had been replaced. Aside from that, it didn't look like anything else on the board had been messed with -- and there was quite a lot on the board. I was suprised to see a fairly extensive TTL and discrete transistor section peripheral to the processor and memory, and distinct from the output driving circuits. Long story short, I used a multimeter to test resistances and diode drops to aid in extracting a schematic from the PCB and was able to discover that the problem originated from a damaged 7402 TTL quad nor gate. There were two of these on the board functioning as enable circuits for the injector power transistors. The problematic part happened to be responsible for enabling and disabling 4 injectors.</p>

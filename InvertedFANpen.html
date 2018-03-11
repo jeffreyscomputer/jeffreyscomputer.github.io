@@ -10,6 +10,10 @@
 </head>
 <body>
 		<div class="container">
+			<p>
+				<a href="index.html">
+				Main Index</a>
+			</p>
       <h1>Fan Actuated Inverted Pendulum Control System</h1>
       <p>This was the final project that my buddy Chad and I turned in for a modern control systems design course (The only proof I have of his existence is a link to his <a href="https://www.linkedin.com/in/chad-arnett-06400796?trk=prof-samename-name" target = "_blank">LinkedIn</a>. If he were available for hire I would recommend him to everyone -- he gave me a bunch of stuff so he's cool). The system is a modified inverted pendulum problem -- instead of the pendulum being mounted to a moving cart or a swinging arm, the pivot point is fixed, and a pair of fans are attached to the far end. The goal was to design an optimal LQR controller for the system to keep the pendulum in the upright position using the two fans, and to implement it digitally on an arduino.</p>
       <p>Without going into too much detail, the process was essentially this: (0) build the system, (1) derive the equations of motion from a free body diagram, (2) assign the two inputs as non-conservative forces in the equations, (3) generate a linearized state space model of the system, (4) assess its stability as determined by the eigen values of the state matrix and also by extracting transfer functions from the time domain model, (5) Verify controllability and observability, (6) Design and build an electronic interface for measurement/state estimation as well as for actuation, (7) write a matlab script to solve the algebraic Spaghetti equation, (8) Simulate in Simulink, (9) Write the C code for state measurement and estimation, and for the controller gains as obtained from the solution to the algebraic Jumanji* equation, and (10), test it out.</p>

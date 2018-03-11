@@ -11,6 +11,10 @@
 </head>
 <body>
 		<div class="container">
+			<p>
+				<a href="index.html">
+				Main Index</a>
+			</p>
       <h1>Pulse Width Comparator</h1>
       <p>Hypothetical problem: I have a system with multiple PWM controlled actuators, and I desire to have the capability to remotely switch between autonomous feedback control and manual radio control. Ideally, I would like the manual controls to continue to work in the case that the feedback controller (MCU) stops working. And let's say I have an 8 channel radio reciever with 8 individual PWM outputs.</p>
       <p>The task of switching between manual and autonomous control for N actuators is easily accomplished with N parallel 2 input multiplexers. This is no big deal. Controlling the multiplexers on the other hand requires some work. If we are to use one of the RC channels to do the task, we need to be able to assign two distinct digital values to two different pulse widths, or ranges of widths in some way. In other words, we need a circuit which effectively compares the pulse width from a reciever channel with a reference, and output either a high or low signal accordingly. </p>
