@@ -45,8 +45,8 @@ a:hover {
 img {
   height: auto;
   width: auto;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 75%;
+  max-height: 600px;
 }
 @media screen and (max-width: 768px) {
   img {
