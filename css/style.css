@@ -70,7 +70,11 @@ iframe {
   max-width: 75%
   max-height: 500px;
 }
-
+@media screen and (max-width: 768px) {
+  iframe {
+    margin: 0 auto;
+  }
+}
 
 iframe.displayed {
   display:block;
