@@ -67,7 +67,7 @@ img.displayed {
 iframe {
   height: auto;
   width: auto;
-  max-width: 75%
+  max-width: 75%;
   max-height: 500px;
 }
 @media screen and (max-width: 768px) {
