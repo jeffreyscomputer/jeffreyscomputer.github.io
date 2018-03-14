@@ -56,9 +56,6 @@ img {
   img {
     margin: 0 auto;
   }
-  iframe {
-    margin: 0 auto;
-  }
 }
 img.displayed {
   display: block;
