@@ -57,6 +57,7 @@ img {
     margin: 0 auto;
   }
 }
+
 img.displayed {
   display: block;
   margin-left: auto;
@@ -65,10 +66,11 @@ img.displayed {
 
 iframe {
   height: auto;
-  width: audto;
+  width: auto;
   max-width: 75%
   max-height: 500px;
 }
+
 
 iframe.displayed {
   display:block;
