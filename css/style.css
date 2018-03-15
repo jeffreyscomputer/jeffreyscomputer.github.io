@@ -65,11 +65,13 @@ img.displayed {
 }
 
 iframe {
+  height: auto;
+  width: auto;
   margin: 0;
   padding: 0;
   border: none;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
     iframe {
         max-width: 75% !important;
         width: auto !important;
