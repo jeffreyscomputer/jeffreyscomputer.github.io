@@ -65,15 +65,16 @@ img.displayed {
 }
 
 iframe {
-  height: auto;
-  width: auto;
-  max-width: 75%;
-  max-height: 500px;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
-@media screen and (max-width: 768px) {
-  iframe {
-    margin: 0 auto;
-  }
+@media screen and (max-width: 750px) {
+    iframe {
+        max-width: 75% !important;
+        width: auto !important;
+        height: auto !important;
+    }
 }
 
 iframe.displayed {
