@@ -6,7 +6,8 @@
 	<link rel="stylesheet" href="css/normalize.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
-
+  <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  
 </head>
 <body>
 		<div class="container">
@@ -25,7 +26,7 @@
       <img class="displayed" src="images/Flyswatter-transformer-01.PNG" />
       <p>This doesn't mean a whole lot on its own, but combined with physical measurements of the core and knowledge of the resistivity of the wire used, we can estimate the length of the wires making up each coil, and thus the number of turns, and the inductance.</p>
       <p>The coils between pins 3 and 4, and pins 1 and 5 appear to be wound with the same wire, which to me looks like 26AWG, or maybe 28. The other coil, between 3 and 2 is unfortunately too hard to see from the outside, so I can't tell. But we can use other aspects of the transformer geometry to determine what we have.</p>
-      <p>Let's assume that most of the volume of the transformer windings is taken up by the 250 ohm winding, and further that the ratio of copper to empty space is the ratio of the area of a circle with diameter a to a square with side lenght a, that is pi/4. This is the approximate situation:</p>
+      <p>Let's assume that most of the volume of the transformer windings is taken up by the 250 ohm winding, and further that the ratio of copper to empty space is the ratio of the area of a circle with diameter a to a square with side length a, that is pi/4. This is the approximate situation:</p>
       <img class="displayed" src="images/Flyswatter-coil-volume.PNG" />
       <p>Where:</p>
       \[V_{copper} \approx l \cdot(W^2 - W_c^2)\cdot\frac{\pi}{4}\]
