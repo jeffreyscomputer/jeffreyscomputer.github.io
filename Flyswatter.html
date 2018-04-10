@@ -20,7 +20,7 @@
       <p>The first thing that we do is to measure the output voltage. To get a general idea of what might be expected, it is useful to remember that the dielectric strength of air is around 3kV per mm. The electrode screens on the device are separated by a couple millimeters, and no arcing occurs spontaneously so we aren't dealing with 10's of thousands of volts. But a value of a couple thousand would not be suprising. Since we don't want to try to measure anything bigger than 1000V with the multimeter, we add a 1Meg resistor in series with the 10Meg load resistor. Measuring across the 1Meg resistor shows a voltage of 165V--ignoring internal resistance of the DMM for now--the full output voltage is around 1.8kV.</p>
       <h2>Schematic Extraction</h2>
       <p>The next step in understanding this device is extracting a schematic representation from the physical circuit. This is no big deal, and can be accomplished readily using a combination of visual inspetion, resistance measurements, and diode drop measurements. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: 1. Some type of transformer with 5 pins, 2. Some type of 3 terminal TO-92 package device -- revealed to be an npn transistor upon reading its label, and 3. A string of capacitors and diodes which is clearly a voltage multiplier.</p>
-      <h2>The Transformer</h2>
+      <h4>The Transformer</h4>
       <p>Just by looking, we can see how all these parts are connected. Though we don't know the configuration of the transformer yet, we know that it has the following pin connections: one directly to the 3V supply, one to the 3V supply through a 3k3 resistor, one to the first capacitor of the voltage multiplier, and two to the transistor. Next, using the multimeter to measure the transformer's pin to pin resistances, we are futher able to determine a probable configuration. Below is a summary of those measurements:</p>
       <img class="displayed" src="images/Flyswatter-transformer-01.PNG" />
       <p>This doesn't mean a whole lot on its own, but combined with physical measurements of the core and knowledge of the resistivity of the wire used, we can estimate the length of the wires making up each coil, and thus the number of turns, and the inductance.</p>
@@ -41,7 +41,7 @@
       <p>The core cross section appears to be about 5mm X 5mm (Wc), with the coil being approximately 1cm long, and 1cm wide (l and W respectively). This gives a copper volume of approximately...</p>
       \[V_{copper} \approx (1cm^3 - 0.25cm^3)\cdot\frac{pi}{4}=0.59cm^3\]
 
-      <h2>The Transistor</h2>
+      <h4>The Transistor</h4>
       <p>Lucky for us, the transistor had a legible lable on it -- however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. Anyway, in the next section is a picture of the LT Spice schematic including notes on how I determined the transformer configuration.</p>
       <h2>Spice Simulation</h2>
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
