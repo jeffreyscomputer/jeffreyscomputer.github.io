@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flyswatter</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/normalize.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+		<div class="container">
+			<p>
+				<a href="index.html">
+				Main Index</a>
+			</p>
+      <h1>High Voltage Insect Zapper</h1>
+      <p>This is one of those simple circuits for which can be found on the internet a lot of very poor explanations. I have thought about this for a while, so I have some insights to contribute.</p>
+      <h2>Initial Measurements</h2>
+      <p>The first thing that I did was to measure the output voltage of this thing. The dielectric strength of air is around 3kV per mm -- Now the electrodes on this thing are separated by a couple milimeters, and no arcing occurs spontaneously so we aren't dealing with 10's of thousands of volts. But a value of a couple thousand would not be suprising. To make measurement safe, I added a 1Meg resistor in series with the 10Meg load resistor. Measuring across the 1Meg resistor showed a voltage of 165V -- ignoring internal resistance of the DMM for now, the full output voltage is around 1.8kV.</p>
+      <h2>Schematic Extraction</h2>
+      <p>The next step in understanding this device is extracting a schematic representation from the physical circuit. This is no big deal, and can be accomplished readily using a combination of visual inspetion, resistance measurements, and diode drop measurements. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: 1. Some type of transformer, 2. Some type of 3 terminal TO-92 package device -- revealed to be an npn transistor upon reading the label, and 3. A string of capacitors and diodes which undoubtedly forms a voltage multiplier.</p>
+      <p>Next, using a multimeter to measure pin to pin resistances, I was futher able to determine the configuration of the transformer. Also, how this connects to the transistor switch and the voltage multiplier was easily determined using my eyes. Lucky for me, the transistor had a legible lable on it -- however, I could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. Anyway, in the next section is a picture of the LT Spice schematic including notes on how I determined the transformer configuration.</p>
+      <h2>Spice Simulation</h2>
+			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
+      <p>Note that the transistor model used uses all default values for SPICE aside from those shown, which were chosen to emulate performance reported in the datasheet. A transient simulation is shown below.</p>
+      <img class="displayed" src="images/Flyswatter-transient-hv.PNG" />
+      <p>The simulated output comes really close to what I measured. Why? I will add that tomorrow.</p>
+		</div>
+</body>
+</html>
