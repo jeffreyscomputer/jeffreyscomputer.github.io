@@ -51,12 +51,13 @@
       <p>Lucky for us, the transistor had a legible lable on it -- however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. By looking at the device datasheet, it is clear that some behavior deviates from the SPICE default NPN transistor. Now, I could go into another digression about this, but I don't want to do that exactly. Suffice to say that the important parameters were the forward current gain, BE and CB capacitance, early voltage and high current beta roll off. Anyway, in the next section is a picture of the LT Spice schematic, showing how the switch is actually connected.</p>
       <h2>Spice Simulation</h2>
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
-      <p>I have used a coupled inductor model transformer here, which assumes perfect coupling and no core losses--high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a nonideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
+      <p>I have used a coupled inductor transformer model here, which assumes perfect coupling and no core losses--high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a nonideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
       <img class="displayed" src="images/Flyswatter-transient-hv.PNG" />
       <h3>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h3>
-      <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to ahve a similarly week effect on the output voltage. Ok... so why does this thing oscillate?</p>
-      
-
+      <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to have a similarly week effect on the output voltage. Ok... so how does this thing oscillate? </p>
+      <h2>Explanation</h2>
+      <p>Let's pick some permanent inductor values and observe terminal voltages and currents. Below is a transient simulation showing just collector voltage and current:</p>
+      <img class="displayed" src="images/Flyswatter-sim-c.PNG" />
 		</div>
 </body>
 </html>
