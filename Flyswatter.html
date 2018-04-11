@@ -60,7 +60,9 @@
       <img class="displayed" src="images/Flyswatter-sim-c.PNG" />
       <p> </p>
       <img class="displayed" src="images/Flyswatter-sim-b.PNG" />
-      <p>The smart thing to do is to recognize 4 time intervals: (1) switch open (2) switch closing (3) switch closed (4) switch opening. </p>
+      <p>The smart thing to do is to recognize 4 time intervals: (1) switch open (2) switch closing (3) switch closed (4) switch opening. The switch open interval (1) is easily identified -- it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, notice that there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC -- so here, the switch is in reverse active mode. The degree to which this occurs depends on the reverse active current gain of the transistor used -- we can ignore this for now.</i></p>
+      <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range -- pretty quick.</p>
+      <p>Next, the switch enters state (3)--the interval of unbridaled collector current increase. But something obviously stops it from increasing... what is it? </p>
 		</div>
 </body>
 </html>
