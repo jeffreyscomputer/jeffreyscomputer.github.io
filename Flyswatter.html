@@ -53,7 +53,9 @@
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
       <p>I have used a coupled inductor model transformer here, which assumes perfect coupling and no core losses--high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a nonideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
       <img class="displayed" src="images/Flyswatter-transient-hv.PNG" />
-      <h4>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h4>
+      <h3>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h3>
+      <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to ahve a similarly week effect on the output voltage. Ok... so why does this thing oscillate?</p>
+      
 
 		</div>
 </body>
