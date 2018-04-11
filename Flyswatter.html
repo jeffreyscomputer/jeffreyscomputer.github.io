@@ -56,8 +56,10 @@
       <h3>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h3>
       <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to have a similarly week effect on the output voltage. Ok... so how does this thing oscillate? </p>
       <h2>Explanation</h2>
-      <p>Let's pick some permanent inductor values and observe terminal voltages and currents. Below is a transient simulation showing just collector voltage and current:</p>
+      <p>Let's fix the inductor values and observe terminal voltages and currents. Below is a transient simulation showing just collector voltage and current, and below that is the same for the base:</p>
       <img class="displayed" src="images/Flyswatter-sim-c.PNG" />
+      <img class="displayed" src="images/Flyswatter-sim-b.PNG" />
+      <p>The smart thing to do is to recognize 4 time intervals: (1) switch open (2) switch closing (3) switch closed (4) switch opening. </p>
 		</div>
 </body>
 </html>
