@@ -54,12 +54,12 @@
 			The voltage multiplier section has 4 capacitors and 4 diodes, arranged like this:</p>
 			<img class="displayed" src="images/Flyswatter-voltage-multiplier.PNG" />
 			<p>A half wave "voltage doubler" is typically shown with two capacitors and two diodes driven by an AC source v(t)=Asin(wt), where the amplitude A is half of the peak to peak voltage of the AC signal. Invoking the picture above, we say C1 and D1 form a voltage clamp, the output of which approaches v(t)=Asin(wt)+A. Then C2 and D2 form a peak detector (or half wave rectifier if a load is connected across C2), with an output voltage of near 2A -- the peak to peak voltage.</p>
-			<p>We might think to call our multiplier a voltage quadrupler, because it looks like two cascaded doublers... and maybe some people call it that. I prefer to call the 4 capacitor, 4 diode circuit a peak to peak doubler. The reason becomes clear when you consider different kinds of intpus. The first picture below shows node voltages using a sinusoidal input:</p>
+			<p>We might think to call our multiplier a voltage quadrupler, because it looks like two cascaded doublers... and maybe some people call it that. I prefer to call the 4 capacitor, 4 diode circuit a peak to peak doubler. The reason becomes clear when you consider different kinds of inputs. The first picture below shows node voltages using a sinusoidal input:</p>
 			<img class="displayed" src="images/Flyswatter-sim-vm.PNG"/>
 			<p>A is 10, and the output definitely approaches 4A... but look at the situation with a unipolar square wave input with a peak to peak variation of 20V:</p>
 			<img class="displayed" src="images/Flyswatter-sim-vm-2.PNG"/>
 			<p>The output aproaches the same value, while an amplitude which is half of the peak to peak value for this signal is not defined. I hope that clears that up.</p>
-			
+
       <h2>Simulation</h2>
 
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
@@ -68,10 +68,9 @@
       <h3>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h3>
       <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to have a similarly week effect on the output voltage. Ok... so how does this thing oscillate? </p>
       <h2>Explanation</h2>
-      <p>Let's fix the inductor values and observe terminal voltages and currents. Below is a transient simulation showing just collector voltage and current, and below that is the same for the base:</p>
-      <img class="displayed" src="images/Flyswatter-sim-c.PNG" />
-      <p> </p>
-      <img class="displayed" src="images/Flyswatter-sim-b.PNG" />
+      <p>Let's fix the inductor values and observe terminal voltages and currents. Below is a transient simulation showing collector and base voltages and currents, as well as the voltage at the secondary tap:</p>
+      <img class="displayed" src="images/Flyswatter-sim-regions.PNG" />
+
       <p>The smart thing to do is to recognize 4 time intervals: (1) switch open (2) switch closing (3) switch closed (4) switch opening. The switch open interval (1) is easily identified -- it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC -- so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used -- we can ignore this for now.</i></p>
       <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range -- pretty quick.</p>
       <p>Next, the switch enters state (3)--the interval of unbridled collector current increase. But something obviously bridals it... what is it? Well, there are a couple possibilities. Remember that the collector is in series with the transformer primary. By closing the switch, the primary is connected across the 3V supply, defining a rate of change of current:</p>
