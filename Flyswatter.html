@@ -16,45 +16,79 @@
 				Main Index</a>
 			</p>
       <h1>High Voltage Insect Zapper</h1>
+
       <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing--now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do? Here's what I did: I reduced the number of words in this article as much as I could.</p>
+
       <h2>Initial Measurements</h2>
+
       <p>The first thing we want do is to measure the output voltage. Before that, however, we should have a general idea of the magnitude of the output so we don't accidentally damage a meter. It is useful to remember that the dielectric strength of air is around 3kV per mm. Since the electrode screens on the device are separated by only a couple millimeters, and no arcing occurs spontaneously, we know we aren't dealing with 10's of thousands of volts. But a value of a couple thousand should surprise no one. Since we don't want to try to measure anything bigger than 1000V with the multimeter, we add a 1Meg resistor in series with the 10Meg load resistor. </p>
+
 			<img class="displayed" src="images/Flyswatter-measure.PNG" />
+
 			<p>Measuring across the 1Meg resistor shows a voltage of 165V--ignoring internal resistance of the DMM for the foreseeable future--the full output voltage is around 1.8kV.</p>
+
       <h2>Schematic Extraction</h2>
+
       <p>Next we want to extract a schematic representation from the physical circuit. This can be accomplished readily using a combination of visual inspection and measurements of resistances and diode drops. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: (1) Some type of transformer with 5 pins, (2) Some type of 3 terminal TO-92 package device -- revealed to be an NPN transistor upon reading its label, and (3) A string of capacitors and diodes which is most definitely a voltage multiplier. </p>
 			<p>So what do we have? A self oscillating DC-DC converter of a yet unknown topology. All we have to do to complete the picture is determine the pinouts of the transformer and transistor.</p>
+
       <h4>The Transformer</h4>
+
 			<p>If you are interested in how I approximated the turn counts and everything else, see my <a href="FS-Transformer.html">Digression on the Transformer</a> page. If not, be comforted that I used a rather dippy technique to reach the values for inductances used in the coupled inductor transformer model which appears in later simulations. The other important thing is the transformer pin-to-pin resistance measurements, summarized int he graphic below:</p>
+
 			<img class="displayed" src="images/Flyswatter-transformer-01.PNG" />
+
 			<p>Please, continue.</p>
 
       <h4>The Transistor</h4>
+
       <p>Lucky for us, the transistor had a legible label on it -- however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. By looking at the device datasheet, it is clear that some behavior deviates from the SPICE default NPN transistor. Now, I could go into another digression about this, but I don't want to do that exactly. Suffice to say that the important parameters were the forward current gain, BE and CB capacitance, early voltage and high current beta roll off. Anyway, the LT Spice drawing below shows how the transistor is hooked up: the blue numbers 4 and 5 correspond to the pins of the transformer as depicted in the transformer graphic.</p>
+
 			<img class="displayed" src="images/Flyswatter-transistor.PNG" />
-			
+
 			<h4>The Voltage Multiplier</h4>
+
 			The voltage multiplier section has 4 capacitors and 4 diodes, arranged like this:</p>
+
 			<img class="displayed" src="images/Flyswatter-voltage-multiplier.PNG" />
+
 			<p>A half wave "voltage doubler" is typically shown with two capacitors and two diodes driven by an AC source v(t)=Asin(wt), where the amplitude A is half of the peak to peak voltage of the AC signal. Invoking the picture above, we say C1 and D1 form a voltage clamp, the output of which approaches v(t)=Asin(wt)+A. Then C2 and D2 form a peak detector (or half wave rectifier if a load is connected across C2), with an output voltage of near 2A -- the peak to peak voltage.</p>
 			<p>We might think to call our multiplier a voltage quadrupler, because it looks like two cascaded doublers... and maybe some people call it that. I prefer to call the 4 capacitor, 4 diode circuit a peak to peak doubler. The reason becomes clear when you consider different kinds of inputs. The first picture below shows node voltages using a sinusoidal input:</p>
+
 			<img class="displayed" src="images/Flyswatter-sim-vm.PNG"/>
+
 			<p>A is 10, and the output definitely approaches 4A... but look at the situation with a unipolar square wave input with a peak to peak variation of 20V:</p>
+
 			<img class="displayed" src="images/Flyswatter-sim-vm-2.PNG"/>
-			<p>The output aproaches the same value, while an amplitude which is half of the peak to peak value for this signal is not defined. I hope that clears something up.</p>
+
+			<p>The output aproaches the same value, while an amplitude which is half of the peak to peak value for this signal is not defined. <i>Side note, with an input that is always greater than 0, you don't need the first clamp section.</i> I hope that clears something up.</p>
 
       <h2>Complete Circuit and Simulation</h2>
 
+			<p>We now know what everything is -- the complete circuit can be represented like so:</p>
+
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
+
       <p>I have used a coupled inductor transformer model here, which assumes perfect coupling and no core losses--high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a non-ideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
+
       <img class="displayed" src="images/Flyswatter-transient-hv.PNG" />
+
       <h3>Red: L1=50u, L2=200m; Orange: L1=500u, L2=200m; Yellow: L1=50u, L2=2; Green: L1=500u, L2=2</h3>
+
       <p>A couple things to notice: L1 (primary inductance, as well as the first tap inductance of the secondary), has a strong effect on the oscillating frequency, and a relatively weak effect on output voltage (factor of 10 change in L gives 10-20% change in output voltage). The value of L2 seems to have a similarly week effect on the output voltage. Ok... so how does this thing oscillate? </p>
+
       <h2>Explanation</h2>
-      <p>Let's fix the inductor values and observe terminal voltages and currents. Below is a transient simulation showing collector and base voltages and currents, as well as the voltage at the secondary tap:</p>
+
+      <p>Before we start making things up about this circuit, let's simulate what we have with fixed the inductor values and observe terminal voltages and currents. Below is a transient simulation showing collector and base voltages and currents, as well as the voltage at the secondary tap:</p>
+
       <img class="displayed" src="images/Flyswatter-sim-regions.PNG" />
 
-      <p>The smart thing to do is to recognize 4 time intervals: (1) switch open (2) switch closing (3) switch closed (4) switch opening. The switch open interval (1) is easily identified -- it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC -- so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used -- we can ignore this for now.</i></p>
+      <p>One way to figure out how this works is to recognize 4 time intervals - (1) switch open (2) switch closing (3) switch closed (4) switch opening - and to characterize the behavior of the specific devices involved durong those intervals. Another way is to think more abstractly about it.</p>
+			<p>This is my old description:</p>
+
+
+
+			<p>The switch open interval (1) is easily identified -- it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC -- so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used -- we can ignore this for now.</i></p>
       <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range -- pretty quick.</p>
       <p>Next, the switch enters state (3)--the interval of unbridled collector current increase. But something obviously bridals it... what is it? Well, there are a couple possibilities. Remember that the collector is in series with the transformer primary. By closing the switch, the primary is connected across the 3V supply, defining a rate of change of current:</p>
       \[\frac{di_L}{dt}=\frac{1}{L}V_L\]
