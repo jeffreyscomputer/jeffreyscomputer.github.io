@@ -16,40 +16,22 @@
 				Main Index</a>
 			</p>
       <h1>High Voltage Insect Zapper</h1>
-      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing--now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do?</p>
+      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing--now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do? Here's what I did: I reduced the number of words in this article as much as I could.</p>
       <h2>Initial Measurements</h2>
-      <p>The first thing we want do is to measure the output voltage. Before that, however, we should have a general idea of the magnitude of the output so we don't accidentally damage a meter. It is useful to remember that the dielectric strength of air is around 3kV per mm. Since the electrode screens on the device are separated by only a couple millimeters, and no arcing occurs spontaneously, we know we aren't dealing with 10's of thousands of volts. But a value of a couple thousand would surprise no one. Since we don't want to try to measure anything bigger than 1000V with the multimeter, we add a 1Meg resistor in series with the 10Meg load resistor. Measuring across the 1Meg resistor shows a voltage of 165V--ignoring internal resistance of the DMM for the foreseeable future--the full output voltage is around 1.8kV.</p>
+      <p>The first thing we want do is to measure the output voltage. Before that, however, we should have a general idea of the magnitude of the output so we don't accidentally damage a meter. It is useful to remember that the dielectric strength of air is around 3kV per mm. Since the electrode screens on the device are separated by only a couple millimeters, and no arcing occurs spontaneously, we know we aren't dealing with 10's of thousands of volts. But a value of a couple thousand should surprise no one. Since we don't want to try to measure anything bigger than 1000V with the multimeter, we add a 1Meg resistor in series with the 10Meg load resistor. </p>
+			<img class="displayed" src="images/Flyswatter-measure.PNG" />
+			<p>Measuring across the 1Meg resistor shows a voltage of 165V--ignoring internal resistance of the DMM for the foreseeable future--the full output voltage is around 1.8kV.</p>
       <h2>Schematic Extraction</h2>
       <p>Next we want to extract a schematic representation from the physical circuit. This can be accomplished readily using a combination of visual inspection and measurements of resistances and diode drops. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: (1) Some type of transformer with 5 pins, (2) Some type of 3 terminal TO-92 package device -- revealed to be an NPN transistor upon reading its label, and (3) A string of capacitors and diodes which is most definitely a voltage multiplier. </p>
 			<p>So what do we have? A self oscillating DC-DC converter of a yet unknown topology. All we have to do to complete the picture is determine the pinouts of the transformer and transistor.</p>
-      <h4>Digression on the Transformer</h4>
-      <p>This section is kind of long -- you can go ahead and skip to the section of your choice if you don't care about my transformer journey. Also if you are a mathematician, my "calculations" might appear appallingly crude. In my defense, I had no measurement tools other than my eyes available when I did this analysis, and so cannot justify a much more rigourous treatment. Nevertheless, we proceed.</p>
-      <p>Just by looking, we can see how all these parts are connected. Though we don't know the configuration of the transformer yet, we know that it has the following pin connections: one directly to the 3V supply, one to the 3V supply through a 3k3 resistor, one to the first capacitor of the voltage multiplier, and two to the transistor. Next, using the multimeter to measure the transformer's pin to pin resistances, we are further able to determine a probable configuration. Below is a summary of those measurements:</p>
-      <img class="displayed" src="images/Flyswatter-transformer-01.PNG" />
-      <p>As seen in the graphic, the resistance tests determine the electrical connections of the coils. This doesn't mean a whole lot on its own, but combined with physical measurements of the core and knowledge of the resistivity of the wire used, we can estimate the length of the wires making up each coil, and thus the number of turns, and the inductance.</p>
-      <p>The coils between pins 3 and 4, and pins 1 and 5 appear to be wound with the same gauge wire, which to me looks to be no smaller than 30AWG or so. The other coil, between 3 and 2 is unfortunately too hard to see from the outside, so I can't tell. But we can use other aspects of the transformer geometry to determine what we have.</p>
-      <p>Let's take a leap and assume that most of the volume of the transformer windings is taken up by the 250 ohm winding, and further that the ratio of copper to empty space is the ratio of the area of a circle with diameter a to a square with side length a, that is pi/4. This is the approximate situation:</p>
-      <img class="displayed" src="images/Flyswatter-coil-volume.PNG" />
-      <p>Where:</p>
-      \[V_{copper} \approx l \cdot(W^2 - W_c^2)\cdot\frac{\pi}{4}\]
-      <p>The length of the copper wire can be determined if the cross sectional area is known:</p>
-      <img class="displayed" src="images/Flyswatter-wire-volume.PNG" />
-      <p>with</p>
-      \[L = \frac{V}{A}\]
-      <p>And with resistance defined as:</p>
-      \[R = \rho \frac{L}{A}\]
-      <p>Combining the second two equations gives R in terms of V and A. Expressing V in terms of the coil and core geometry yields an expression for A:</p>
-      \[R = \rho \frac{V/A}{A} = \rho \frac{V}{A^2} = \rho \frac{\pi l\cdot (W^2 - W_c^2)}{4 A^2}\]
-      \[\therefore A = \sqrt{\frac{\rho \pi l \cdot(W^2-W_c^2)}{4 R}}\]
-      <p>Further, an expression for the diameter of the wire can be obtained:</p>
-      \[D = \left [ \frac{4 \rho l \cdot(W^2-W_c^2)}{\pi R}\right ]^{1/4}\]
-      <p>That's nice, but it's probably a better idea to just use Matlab. The script below helps determine (among other things) the approximate values for wire gauge, number of turns and inductance:</p>
-      <img class="displayed" src="images/Flyswatter-coil-calc-matlab.PNG" />
-      <p>Note that I totally guessed the relative permeability of the ferrite core -- it could be anything from like 20 up to several hundred. At any rate, this gives us an approximate wire gauge of 43AWG, a turn count of like 1500, and an inductance of like 750mH. There is a lot that can make this not true -- but it at least gives us an idea that the inductance of that coil is in the 100s of mH range, to maybe several Henries.</p>
-      <p>The other coils then, which appear to be made of the same wire gauge, with the same series resistance, must have similar characteristics. Now, for an increase in AWG # by 10, the increase in resistance is 10 times. That's an approximately 26% increase in resistance per step in AWG. This means 43 AWG should have a resistance approximately 20 times that of 30AWG. Since 43 AWG wire has about 2 ohms per foot resistance, 30AWG is expected to have around 100m ohms for the same length. Since the mean coil length is near an inch, that translates to 12 or so turns for every 100m ohms. This implies 60 turns if we are to trust our 500m ohm resistance measurement... which I don't. However, it is also unknown what the actual length of each turn is, so I'm postulating we have anywhere from 10 to 100 turns. That gives an inductance range from like 30uH to 3mH.</p>
-      <p>Note that I am ignoring any nonlinearity of the core material, which is generally unwise. But remember, All we are trying to do at this point is investigate why this thing works -- if it turns out that the simulation doesn't work, it is likely that transformer saturation is necessary to operation. More on this later.</p>
+      <h4>The Transformer</h4>
+			<p>If you are interested in how I approximated the turn counts and everything else, see my <a href="FS-Transformer.html">Digression on the Transformer</a> page. If not, be comforted that I used a rather dippy technique to reach the values for inductances used in the coupled inductor transformer model which appears in later simulations. The other important thing is the transformer pin-to-pin resistance measurements, summarized int he graphic below:</p>
+			<img class="displayed" src="images/Flyswatter-transformer-01.PNG" />
+			<p>Please, continue.</p>
+
       <h4>The Transistor</h4>
       <p>Lucky for us, the transistor had a legible label on it -- however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. By looking at the device datasheet, it is clear that some behavior deviates from the SPICE default NPN transistor. Now, I could go into another digression about this, but I don't want to do that exactly. Suffice to say that the important parameters were the forward current gain, BE and CB capacitance, early voltage and high current beta roll off. Anyway, in the next section is a picture of the LT Spice schematic, showing how the switch is actually connected.</p>
+			
 			<h4>The Voltage Multiplier</h4>
 			The voltage multiplier section has 4 capacitors and 4 diodes, arranged like this:</p>
 			<img class="displayed" src="images/Flyswatter-voltage-multiplier.PNG" />
@@ -58,7 +40,7 @@
 			<img class="displayed" src="images/Flyswatter-sim-vm.PNG"/>
 			<p>A is 10, and the output definitely approaches 4A... but look at the situation with a unipolar square wave input with a peak to peak variation of 20V:</p>
 			<img class="displayed" src="images/Flyswatter-sim-vm-2.PNG"/>
-			<p>The output aproaches the same value, while an amplitude which is half of the peak to peak value for this signal is not defined. I hope that clears that up.</p>
+			<p>The output aproaches the same value, while an amplitude which is half of the peak to peak value for this signal is not defined. I hope that clears something up.</p>
 
       <h2>Complete Circuit and Simulation</h2>
 
