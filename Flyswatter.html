@@ -17,7 +17,7 @@
 			</p>
       <h1>High Voltage Insect Zapper</h1>
 
-      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing--now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do? Here's what I did: I reduced the number of words in this article as much as I could.</p>
+      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing&mdash;now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do? Here's what I did: I reduced the number of words in this article as much as I could.</p>
 
       <h2>Initial Measurements</h2>
 
@@ -25,11 +25,11 @@
 
 			<img class="displayed" src="images/Flyswatter-measure.PNG" />
 
-			<p>Measuring across the 1Meg resistor shows a voltage of 165V--ignoring internal resistance of the DMM for the foreseeable future--the full output voltage is around 1.8kV.</p>
+			<p>Measuring across the 1Meg resistor shows a voltage of 165V&mdash;ignoring internal resistance of the DMM for the foreseeable future&mdash;the full output voltage is around 1.8kV.</p>
 
       <h2>Schematic Extraction</h2>
 
-      <p>Next we want to extract a schematic representation from the physical circuit. This can be accomplished readily using a combination of visual inspection and measurements of resistances and diode drops. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: (1) Some type of transformer with 5 pins, (2) Some type of 3 terminal TO-92 package device -- revealed to be an NPN transistor upon reading its label, and (3) A string of capacitors and diodes which is most definitely a voltage multiplier. </p>
+      <p>Next we want to extract a schematic representation from the physical circuit. This can be accomplished readily using a combination of visual inspection and measurements of resistances and diode drops. Just looking at the PCB inside of one of these devices (purchased from Harbor Freight) reveals three important parts of the circuit: (1) Some type of transformer with 5 pins, (2) Some type of 3 terminal TO-92 package device&mdash;revealed to be an NPN transistor upon reading its label, and (3) A string of capacitors and diodes which is most definitely a voltage multiplier. </p>
 			<p>So what do we have? A self oscillating DC-DC converter of a yet unknown topology. All we have to do to complete the picture is determine the pinouts of the transformer and transistor.</p>
 
       <h4>The Transformer</h4>
@@ -42,7 +42,7 @@
 
       <h4>The Transistor</h4>
 
-      <p>Lucky for us, the transistor had a legible label on it -- however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. By looking at the device datasheet, it is clear that some behavior deviates from the SPICE default NPN transistor. Now, I could go into another digression about this, but I don't want to do that exactly. Suffice to say that the important parameters were the forward current gain, BE and CB capacitance, early voltage and high current beta roll off. Anyway, the LT Spice drawing below shows how the transistor is hooked up: the blue numbers 4 and 5 correspond to the pins of the transformer as depicted in the transformer graphic.</p>
+      <p>Lucky for us, the transistor had a legible label on it&mdash;however, we could have determined its pinout by measuring diode drops between pins, assuming none of the other diodes on board were connected in any way that could cause deception. By looking at the device datasheet, it is clear that some behavior deviates from the SPICE default NPN transistor. Now, I could go into another digression about this, but I don't want to do that exactly. Suffice to say that the important parameters were the forward current gain, BE and CB capacitance, early voltage and high current beta roll off. Anyway, the LT Spice drawing below shows how the transistor is hooked up: the blue numbers 4 and 5 correspond to the pins of the transformer as depicted in the transformer graphic.</p>
 
 			<img class="displayed" src="images/Flyswatter-transistor.PNG" />
 
@@ -52,7 +52,7 @@
 
 			<img class="displayed" src="images/Flyswatter-voltage-multiplier.PNG" />
 
-			<p>A half wave "voltage doubler" is typically shown with two capacitors and two diodes driven by an AC source v(t)=Asin(wt), where the amplitude A is half of the peak to peak voltage of the AC signal. Invoking the picture above, we say C1 and D1 form a voltage clamp, the output of which approaches v(t)=Asin(wt)+A. Then C2 and D2 form a peak detector (or half wave rectifier if a load is connected across C2), with an output voltage of near 2A -- the peak to peak voltage.</p>
+			<p>A half wave "voltage doubler" is typically shown with two capacitors and two diodes driven by an AC source v(t)=Asin(wt), where the amplitude A is half of the peak to peak voltage of the AC signal. Invoking the picture above, we say C1 and D1 form a voltage clamp, the output of which approaches v(t)=Asin(wt)+A. Then C2 and D2 form a peak detector (or half wave rectifier if a load is connected across C2), with an output voltage of near 2A&mdash;the peak to peak voltage.</p>
 			<p>We might think to call our multiplier a voltage quadrupler, because it looks like two cascaded doublers... and maybe some people call it that. I prefer to call the 4 capacitor, 4 diode circuit a peak to peak doubler. The reason becomes clear when you consider different kinds of inputs. The first picture below shows node voltages using a sinusoidal input:</p>
 
 			<img class="displayed" src="images/Flyswatter-sim-vm.PNG"/>
@@ -65,11 +65,11 @@
 
       <h2>Complete Circuit and Simulation</h2>
 
-			<p>We now know what everything is -- the complete circuit can be represented like so:</p>
+			<p>We now know what everything is&mdash;the complete circuit can be represented like so:</p>
 
 			<img class="displayed" src="images/Flyswatter-schematic-01.PNG" />
 
-      <p>I have used a coupled inductor transformer model here, which assumes perfect coupling and no core losses--high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a non-ideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
+      <p>I have used a coupled inductor transformer model here, which assumes perfect coupling and no core losses&mdash;high and low estimated inductor values were chosen for a stepped simulation to observe sensitivity to these values. Copper losses are represented as the measured series resistances, specified for each inductor instance. A more detailed simulation with a non-ideal saturable transformer model will show up sooner or later. Also, I added D5 because it is irresponsible to allow EB breakdown. A transient simulation showing the high voltage output is right here below:</p>
 
       <img class="displayed" src="images/Flyswatter-transient-hv.PNG" />
 
@@ -83,21 +83,26 @@
 
       <img class="displayed" src="images/Flyswatter-sim-regions.PNG" />
 
-      <p>One way to figure out how this works is to recognize 4 time intervals - (1) switch open (2) switch closing (3) switch closed (4) switch opening - and to characterize the behavior of the specific devices involved durong those intervals. Another way is to think more abstractly about it.</p>
+      <p>One way to figure out how this works is to recognize 4 time intervals&mdash;(1) switch open (2) switch closing (3) switch closed (4) switch opening&mdash;and to characterize the behavior of the specific devices involved durong those intervals. Another way is to think more abstractly about it.</p>
 			<p>This is my old description:</p>
 
 
 
-			<p>The switch open interval (1) is easily identified -- it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC -- so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used -- we can ignore this for now.</i></p>
-      <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range -- pretty quick.</p>
-      <p>Next, the switch enters state (3)--the interval of unbridled collector current increase. But something obviously bridals it... what is it? Well, there are a couple possibilities. Remember that the collector is in series with the transformer primary. By closing the switch, the primary is connected across the 3V supply, defining a rate of change of current:</p>
+			<p>The switch open interval (1) is easily identified&mdash;it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC&mdash;
+so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used&mdash;
+we can ignore this for now.</i></p>
+      <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range&mdash;
+pretty quick.</p>
+      <p>Next, the switch enters state (3)&mdash;
+the interval of unbridled collector current increase. But something obviously bridals it... what is it? Well, there are a couple possibilities. Remember that the collector is in series with the transformer primary. By closing the switch, the primary is connected across the 3V supply, defining a rate of change of current:</p>
       \[\frac{di_L}{dt}=\frac{1}{L}V_L\]
       <p>The changing current will set up a proportional changing flux in the transformer core according to ampere's law:</p>
       \[I = \frac{mmf}{n},\,\,\,where\,\,\, mmf=\frac{\Phi}{P}\]
       <p>As long as this flux increases at that constant rate, the voltage across first secondary coil will be equal to that of the primary (the supply voltage), because of Faraday's law of induction:</p>
       \[\frac{d \Phi}{dt} = -\frac{V}{n}\]
       <p>As a side note, if the switch is saturated, forward current gain will be reduced, so it is expected that several milliamps will flow in the base to sustain the several hundred in the collector. Just 1mA will cause a voltage drop exceeding the supply across R1, but the BE junction will remain forward biased as long as a sufficiently large voltage appears across the secondary. But as was stated before, a reduction in the increase in flux will reduce that voltage. This could either be caused by a decrease in voltage across the primary (due to finite switch resistance), or transformer saturation. Either way, we should take some time to appreciate the double edged sword that is the turn-off interval./p>
-      <p>Let's say either of the aforementioned mechanisms is responsible for a slight leveling off of the flux increase in the core. The secondary voltage then dips a bit, reducing the forward bias on the BE junction. This invariably will reduce the base current, which in turn will reduce the drop across R1, counteracting the reduction reduction of the BE voltage. This however, is not enough to keep the transistor turned on because the dip in base current will be reflected in the collector, further reducing the rate of increase of flux in the core. There we have our positive feedback -- reduction in collector current reduces BE voltage. And whatever else you need to know you can figure out.</p>
+      <p>Let's say either of the aforementioned mechanisms is responsible for a slight leveling off of the flux increase in the core. The secondary voltage then dips a bit, reducing the forward bias on the BE junction. This invariably will reduce the base current, which in turn will reduce the drop across R1, counteracting the reduction reduction of the BE voltage. This however, is not enough to keep the transistor turned on because the dip in base current will be reflected in the collector, further reducing the rate of increase of flux in the core. There we have our positive feedback&mdash;
+reduction in collector current reduces BE voltage. And whatever else you need to know you can figure out.</p>
 		</div>
 </body>
 </html>
