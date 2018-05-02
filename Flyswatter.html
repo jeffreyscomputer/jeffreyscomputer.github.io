@@ -17,7 +17,7 @@
 			</p>
       <h1>High Voltage Insect Zapper</h1>
 
-      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing&mdash;now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do? Here's what I did: I reduced the number of words in this article as much as I could.</p>
+      <p>This is one of those simple circuits for which can be found a lot of very poor explanations. I took one apart and did some looking and testing&mdash;now I have the feeling that I have something to say about it. In fact, I have determined empirically that I have far too much to say about it, but what can you do?</p>
 
       <h2>Initial Measurements</h2>
 
@@ -83,26 +83,19 @@
 
       <img class="displayed" src="images/Flyswatter-sim-regions.PNG" />
 
-      <p>One way to figure out how this works is to recognize 4 time intervals&mdash;(1) switch open (2) switch closing (3) switch closed (4) switch opening&mdash;and to characterize the behavior of the specific devices involved durong those intervals. Another way is to think more abstractly about it.</p>
-			<p>This is my old description:</p>
-
-
-
-			<p>The switch open interval (1) is easily identified&mdash;it is the one when collector current and base current are zero. The switch closed interval (3) is the one in which the collector current is increasing. <i>Interesting note, there is some funny behavior: For the first part of (3), collector current is negative, base current is large, and VE > VB > VC&mdash;
-so here, the switch is in reverse active mode, with base current supplied through the clamping diode. The degree to which this occurs depends on the reverse active current gain of the transistor used&mdash;
-we can ignore this for now.</i></p>
-      <p>Now, what could cause the transistor to change its state from cutoff to saturated (2)? Consider the case in which power has not yet been applied and the switch is open. Upon applying power, the base sees a series resistor and inductor connected to the supply voltage. Obviously, the current into the base will increase from zero with an approximate L/R time constant, which will be in the hundreds of nanoseconds range&mdash;
-pretty quick.</p>
-      <p>Next, the switch enters state (3)&mdash;
-the interval of unbridled collector current increase. But something obviously bridals it... what is it? Well, there are a couple possibilities. Remember that the collector is in series with the transformer primary. By closing the switch, the primary is connected across the 3V supply, defining a rate of change of current:</p>
-      \[\frac{di_L}{dt}=\frac{1}{L}V_L\]
-      <p>The changing current will set up a proportional changing flux in the transformer core according to ampere's law:</p>
-      \[I = \frac{mmf}{n},\,\,\,where\,\,\, mmf=\frac{\Phi}{P}\]
-      <p>As long as this flux increases at that constant rate, the voltage across first secondary coil will be equal to that of the primary (the supply voltage), because of Faraday's law of induction:</p>
-      \[\frac{d \Phi}{dt} = -\frac{V}{n}\]
-      <p>As a side note, if the switch is saturated, forward current gain will be reduced, so it is expected that several milliamps will flow in the base to sustain the several hundred in the collector. Just 1mA will cause a voltage drop exceeding the supply across R1, but the BE junction will remain forward biased as long as a sufficiently large voltage appears across the secondary. But as was stated before, a reduction in the increase in flux will reduce that voltage. This could either be caused by a decrease in voltage across the primary (due to finite switch resistance), or transformer saturation. Either way, we should take some time to appreciate the double edged sword that is the turn-off interval./p>
-      <p>Let's say either of the aforementioned mechanisms is responsible for a slight leveling off of the flux increase in the core. The secondary voltage then dips a bit, reducing the forward bias on the BE junction. This invariably will reduce the base current, which in turn will reduce the drop across R1, counteracting the reduction reduction of the BE voltage. This however, is not enough to keep the transistor turned on because the dip in base current will be reflected in the collector, further reducing the rate of increase of flux in the core. There we have our positive feedback&mdash;
-reduction in collector current reduces BE voltage. And whatever else you need to know you can figure out.</p>
+      <p>One way to figure out how this works is to recognize 4 time intervals&mdash;(1) switch open (2) switch closing (3) switch closed (4) switch opening&mdash;and to characterize the behavior of the specific devices involved durong those intervals. Another way is to think more abstractly about it, using idealized components, then add in the effects of nonideal device behavior.</p>
+			<p>Consider the circuit with a perfect voltage or current controlled switch. When the switch is open, no current flows in the primary winding, and when it is closed, the voltage across the winding is the low supply voltage. Viewing the winding as a simple linear inductor, the current through it will be proportional to the integral of that voltage&mdash;so we expect to see current increase linearly when the switch is closed. With a perfectly linear transformer and a perfect switch, this would continue indefinitely and cause some multiple of the supply voltage to appear across each secondary winding indefinitely.</p>
+			<p>To determine if the switch will be open or closed, we look at the input circuit, which consists of the series combination of the low voltage supply, a 3k3 ohm resistor, and the low voltage transformer secondary applied to the control input of the switch. Note that the transformer secondary effectively applies positive feedback to the input. For a current controlled switch, a sufficient current must flow throught this circuit to maintain a closed state. The current is simply this:</p>
+			\[I_{input} = \frac{V_{sup}+V_{2ndry}-V_{sw}}{3k3\Omega}\]
+			<p>where Vsw is the voltage at the input of the switch control input. So if the switch is initially open, the voltage across the secondary will be nill, and some current will flow, possibly enough to close the switch (more on that in a momnet). And as we said before, if the switch is already closed the secondary voltage will be some multiple of the supply voltage. So if given the abstract perfect switch a truly linear transformer and a perfect low voltage source, if the switch closes, it will get stuck closed forever. But in reality, many things can cause the switch to open again.</p>
+			<h4>Switch Nonidealities</h4>
+			<p>The BJT is not a perfect switch&mdash;on the way from cutoff to saturation, the device is a current amplifier with a gain of beta. Also, beta rolls off for large collector currents, and there is series resistance with all terminals.</p>
+			<p>So, starting from the state of initially open, a small amount of base current will flow through the 3k3 resistor, causing an increase in collector current, and thus a positive voltage to appear across the primary, and similarly the secondary. A positive voltage on the secondary acts to increase the base current. A nice way to say this is that the transformer applies a feedback signal which is the positive derivative of the collector current.</p>
+			<p>This will bring the device from cutoff, through active mode and into saturation. While saturated, collector current will continue to increase. However, if beta rolls off, the increase in collector current will slow, reducing the voltage fed back to the input which will reduce the input current. And since we have positive feedback, the decrease will speed up and a very large negative voltage will appear across both primary and secondary, shutting off base current entirely and returning the swithc to cutoff, starting the process over. Similarly, if the voltage across the primary is reduced due to the effect of finite collector resistance, the same thing will happen.</p>
+			<h4>Transformer Saturation</h4>
+			<p>Though I didn't model this above, the effect of transformer saturation is the same as beta roll off. For relatively small currents, the transformer can be modeled as approximately linear. In reality, you can only increase the current so much before you no longer get a corresponding increase in flux in the core. Since the secondary voltage is proportional to the rate of change of flux, it will decrease if the core saturates, causing the same transition from saturation to cutoff described above.</p>
+			<h2>Conclusion</h2>
+			This is a nice circuit that is easy to understand, and fun to think about. 
 		</div>
 </body>
 </html>
