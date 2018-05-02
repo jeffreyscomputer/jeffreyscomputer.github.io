@@ -94,8 +94,9 @@
 			<p>This will bring the device from cutoff, through active mode and into saturation. While saturated, collector current will continue to increase. However, if beta rolls off, the increase in collector current will slow, reducing the voltage fed back to the input which will reduce the input current. And since we have positive feedback, the decrease will speed up and a very large negative voltage will appear across both primary and secondary, shutting off base current entirely and returning the swithc to cutoff, starting the process over. Similarly, if the voltage across the primary is reduced due to the effect of finite collector resistance, the same thing will happen.</p>
 			<h4>Transformer Saturation</h4>
 			<p>Though I didn't model this above, the effect of transformer saturation is the same as beta roll off. For relatively small currents, the transformer can be modeled as approximately linear. In reality, you can only increase the current so much before you no longer get a corresponding increase in flux in the core. Since the secondary voltage is proportional to the rate of change of flux, it will decrease if the core saturates, causing the same transition from saturation to cutoff described above.</p>
+			<p>So we know how it oscillates. Now why does it generate such a large voltage? Well, this is obvious -- the other secondary has many more turns, and that winding is applied to a voltage multiplier. Easy.</p>
 			<h2>Conclusion</h2>
-			This is a nice circuit that is easy to understand, and fun to think about. 
+			This is a nice circuit that is easy to understand, and fun to think about.
 		</div>
 </body>
 </html>
